@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PageTurner - Premium Books & Web Novels Platform</title>
+    
+    <!-- 1. Typography Imports (Inter for interface utility texts, Playfair Display for book covers & headings) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&display=swap" rel="stylesheet">
+    
+    <!-- 2. Search Engine Optimization (SEO) Meta Tags -->
+    <meta name="description" content="Read free online novels and books in a modern, clean, distraction-free environment." />
+  </head>
+  <body>
+    
+    <!-- ==================== STICKY HEADER NAVBAR ==================== -->
+    <header>
+      <div class="container navbar">
+        <!-- Application Logo (Acts as navigation trigger to return home) -->
+        <a href="#" class="logo" id="header-logo" aria-label="PageTurner Home">
+          <span class="logo-icon">📖</span>
+          <span class="font-serif">PageTurner</span>
+        </a>
+        
+        <!-- Desktop Nav links (Visible on screen sizes above 768px. Maps view IDs via data-view) -->
+        <nav aria-label="Main Navigation">
+          <ul class="nav-links">
+            <li><a href="#" class="active" data-view="home-view">Home</a></li>
+            <li><a href="#" data-view="catalog-view" data-type="Books">Books</a></li>
+            <li><a href="#" data-view="catalog-view" data-type="Novels">Novels</a></li>
+            <li><a href="#" data-view="catalog-view">Categories</a></li>
+            <li><a href="#" data-view="add-book-view">Add Book</a></li>
+            <li><a href="#" data-view="about-view">About</a></li>
+            <li><a href="#" data-view="contact-view">Contact</a></li>
+          </ul>
+        </nav>
+        
+        <!-- Utility buttons pane -->
+        <div class="header-right">
+          <!-- Global Slate Theme Toggle -->
+          <button class="search-trigger-btn" id="btn-theme-toggle" aria-label="Toggle Theme" title="Toggle Dark Mode" style="margin-right: 0.25rem;">🌙</button>
+          
+          <!-- Slide-down Search Input Toggle -->
+          <button class="search-trigger-btn" id="btn-search-trigger" aria-label="Toggle Search bar">🔍</button>
+          
+          <!-- Sign In modal trigger button -->
+          <button class="btn btn-primary auth-trigger-btn">Sign In</button>
+          
+          <!-- Mobile Hamburger Toggle button (Triggers the mobile drawer view below) -->
+          <button class="mobile-menu-toggle" id="btn-mobile-toggle" aria-label="Toggle mobile navigation drawer">☰</button>
+        </div>
+      </div>
+      
+      <!-- ==================== MOBILE NAVIGATION DRAWER ==================== -->
+      <!-- Collapsed side menu drawer that slides down on mobile screen displays -->
+      <div class="mobile-nav" id="mobile-navigation">
+        <ul class="mobile-nav-links">
+          <li><a href="#" class="active" data-view="home-view">Home</a></li>
+          <li><a href="#" data-view="catalog-view" data-type="Books">Books</a></li>
+          <li><a href="#" data-view="catalog-view" data-type="Novels">Novels</a></li>
+          <li><a href="#" data-view="catalog-view">Categories</a></li>
+          <li><a href="#" data-view="add-book-view">Add Book</a></li>
+          <li><a href="#" data-view="about-view">About</a></li>
+          <li><a href="#" data-view="contact-view">Contact</a></li>
+        </ul>
+        <button class="btn btn-primary auth-trigger-btn" style="width: 100%;">Sign In</button>
+      </div>
+      
+      <!-- ==================== LIVE SEARCH INPUT OVERLAY ==================== -->
+      <!-- Drawer that drops down when clicking the search icon to filter books dynamically -->
+      <div class="search-container">
+        <div class="container search-wrapper">
+          <input type="search" class="search-input" placeholder="Search by book titles, authors, genres..." aria-label="Search Catalog" />
+          <span class="search-icon-inside">🔍</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==================== MAIN SINGLE-PAGE VIEWS CONTAINER ==================== -->
+    <main>
+      
+      <!-- 1. HOME PAGE VIEW -->
+      <section id="home-view" class="view-section active">
+        <!-- Hero Spotlight banner -->
+        <div class="hero-section bg-hero">
+          <div class="container hero-grid">
+            <div class="hero-content">
+              <h1 class="font-serif">Discover Your Next Favorite Story</h1>
+              <p>Welcome to PageTurner, a clean and professional reading sanctuary. Browse thousands of curated books and web novels in a distraction-free environment. Start reading for free today.</p>
+              <div class="hero-actions">
+                <button class="btn btn-primary" id="hero-cta-primary">Browse Books</button>
+                <button class="btn btn-secondary" id="hero-cta-secondary">Start Reading</button>
+              </div>
+            </div>
+            <!-- Showcase stack containing 3D rotated books covers -->
+            <div class="hero-showcase">
+              <img src="/fantasy_cover.png" alt="Chronicles of Eldoria Cover" class="showcase-book showcase-book-1" />
+              <img src="/romance_cover.png" alt="Whispers of the Heart Cover" class="showcase-book showcase-book-2" />
+              <img src="/scifi_cover.png" alt="Beyond the Horizon Cover" class="showcase-book showcase-book-3" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Genre Categories list -->
+        <div class="section-padding bg-cream">
+          <div class="container">
+            <div class="section-header">
+              <h2>Explore Categories</h2>
+              <p>Find stories that speak to you across our six handpicked reading genres</p>
+            </div>
+            <div class="categories-grid">
+              <div class="category-card" data-category="Fantasy"><span class="category-icon">✨</span><div class="category-title">Fantasy</div></div>
+              <div class="category-card" data-category="Romance"><span class="category-icon">💖</span><div class="category-title">Romance</div></div>
+              <div class="category-card" data-category="Mystery"><span class="category-icon">🕵️</span><div class="category-title">Mystery</div></div>
+              <div class="category-card" data-category="Thriller"><span class="category-icon">🔪</span><div class="category-title">Thriller</div></div>
+              <div class="category-card" data-category="Sci-Fi"><span class="category-icon">🚀</span><div class="category-title">Sci-Fi</div></div>
+              <div class="category-card" data-category="Education"><span class="category-icon">🎓</span><div class="category-title">Education</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured list (Dynamically rendered by JS) -->
+        <div class="section-padding">
+          <div class="container">
+            <div class="section-header">
+              <h2>Featured Books</h2>
+              <p>Highly rated and editor-approved choices for this week</p>
+            </div>
+            <div class="books-grid featured-books-grid"></div>
+          </div>
+        </div>
+
+        <!-- Web Novel Scroll Horizontal Carousel (Dynamically rendered by JS) -->
+        <div class="section-padding bg-sage">
+          <div class="container">
+            <div class="section-header">
+              <h2>Trending Web Novels</h2>
+              <p>Updated daily with serial stories and engaging chapters</p>
+            </div>
+            <div class="carousel-container trending-carousel"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. BOOK CATALOG VIEW -->
+      <section id="catalog-view" class="view-section section-padding">
+        <div class="container catalog-layout">
+          <!-- Sidebar Filters option buttons panel -->
+          <aside class="catalog-sidebar">
+            <div class="filter-group">
+              <h3 class="filter-group-title">Format Type</h3>
+              <div class="filter-options">
+                <button class="filter-btn type-filter-btn active" data-value="All">All Formats <span class="filter-count">0</span></button>
+                <button class="filter-btn type-filter-btn" data-value="Books">E-Books <span class="filter-count">0</span></button>
+                <button class="filter-btn type-filter-btn" data-value="Novels">Web Novels <span class="filter-count">0</span></button>
+              </div>
+            </div>
+            <div class="filter-group">
+              <h3 class="filter-group-title">Genres</h3>
+              <div class="filter-options">
+                <button class="filter-btn category-filter-btn active" data-value="All">All Genres <span class="filter-count">0</span></button>
+                <button class="filter-btn category-filter-btn" data-value="Fantasy">Fantasy <span class="filter-count">0</span></button>
+                <button class="filter-btn category-filter-btn" data-value="Romance">Romance <span class="filter-count">0</span></button>
+                <button class="filter-btn category-filter-btn" data-value="Mystery">Mystery <span class="filter-count">0</span></button>
+                <button class="filter-btn category-filter-btn" data-value="Thriller">Thriller <span class="filter-count">0</span></button>
+                <button class="filter-btn category-filter-btn" data-value="Sci-Fi">Sci-Fi <span class="filter-count">0</span></button>
+                <button class="filter-btn category-filter-btn" data-value="Education">Education <span class="filter-count">0</span></button>
+              </div>
+            </div>
+          </aside>
+          <!-- Main results window pane -->
+          <div class="catalog-main">
+            <h2 id="catalog-heading-text">All Books & Web Novels</h2>
+            <div class="books-grid catalog-books-grid"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. BOOK DETAILS PAGE -->
+      <section id="details-view" class="view-section section-padding">
+        <div class="container">
+          <!-- Main descriptive grid info -->
+          <div class="detail-grid">
+            <div class="detail-cover-wrapper">
+              <img id="detail-cover" src="/fantasy_cover.png" alt="Cover" />
+            </div>
+            <div class="detail-info">
+              <h1 class="font-serif" id="detail-title">Book Title</h1>
+              <div class="detail-author" id="detail-author">Author Name</div>
+              <div class="detail-rating-row">
+                <div class="detail-stars">★★★★★</div>
+                <div class="detail-rating-val" id="detail-rating-val">4.8</div>
+                <div id="detail-chapters-count" style="color: var(--text-secondary); font-weight: 500;">12 Chapters</div>
+                <span class="tag" id="detail-format-tag" style="background-color: #EEF2F6; color: var(--primary); font-weight: bold;">Web Novel</span>
+              </div>
+              <div class="detail-tags" id="detail-genre-tags"></div>
+              
+              <!-- Pull-quote synopsis panel layout -->
+              <div class="detail-synopsis">
+                <h3>Synopsis</h3>
+                <p id="detail-synopsis-text">Synopsis description.</p>
+              </div>
+              <button class="btn btn-primary" id="btn-read-now" style="font-size: 1.1rem; padding: 0.85rem 2.25rem;">Start Reading</button>
+            </div>
+          </div>
+          
+          <!-- Similar recommendations list widget (Rendered by JS) -->
+          <div class="reviews-section">
+            <h3 class="font-serif" style="font-size: 1.5rem; margin-bottom: 1.5rem;">Similar Stories You Might Like</h3>
+            <div class="books-grid" id="similar-books-grid"></div>
+          </div>
+          
+          <!-- Reviews list and submission form -->
+          <div class="reviews-section" id="reviews-panel">
+            <h3 class="font-serif">Reader Reviews</h3>
+            <form class="review-form" id="comment-form">
+              <h4>Leave a Review</h4>
+              <!-- Rating Selector -->
+              <div class="form-group">
+                <label>Your Rating</label>
+                <div class="review-rating-select" id="review-stars-selection">
+                  <span class="rating-star-btn active">★</span>
+                  <span class="rating-star-btn active">★</span>
+                  <span class="rating-star-btn active">★</span>
+                  <span class="rating-star-btn active">★</span>
+                  <span class="rating-star-btn active">★</span>
+                </div>
+              </div>
+              <!-- Username input -->
+              <div class="form-group">
+                <label for="review-username">Name</label>
+                <input type="text" id="review-username" class="form-control" placeholder="e.g. Jane Doe" required />
+              </div>
+              <!-- Text Area message content -->
+              <div class="form-group">
+                <label for="review-text">Review Comment</label>
+                <textarea id="review-text" class="form-control" rows="4" placeholder="Share your reading experience..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="padding: 0.6rem 1.5rem;">Submit Review</button>
+            </form>
+            
+            <!-- Comment thread list element container (Rendered by JS) -->
+            <div class="reviews-list" id="reviews-list-container"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. PREMIUM E-READER VIEW -->
+      <section id="reader-view" class="view-section">
+        <!-- Reader top controls bar layout -->
+        <div class="reading-header-wrap">
+          <!-- Top loading progress bar visual indicator -->
+          <div class="reading-progress-container">
+            <div class="reading-progress-bar" id="reader-progress"></div>
+          </div>
+          <div class="container reading-controls-bar">
+            <!-- Return button -->
+            <button class="reading-control-btn" id="reader-btn-close"><span>← Details</span></button>
+            <div class="reading-controls-group">
+              <!-- Font size controllers -->
+              <div class="reading-controls-group" style="border-right: 1px solid var(--border); padding-right: 1rem; margin-right: 1rem;">
+                <button class="reading-control-btn" id="reader-btn-font-dec" style="padding: 0.25rem 0.5rem; font-weight: bold;">A-</button>
+                <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Font Size</span>
+                <button class="reading-control-btn" id="reader-btn-font-inc" style="padding: 0.25rem 0.5rem; font-weight: bold;">A+</button>
+              </div>
+              <!-- Workspace color theme toggles -->
+              <div class="theme-selector">
+                <button class="theme-option active" data-theme="light">Light</button>
+                <button class="theme-option" data-theme="sepia" style="background-color: #FDF6E3; color: #586E75;">Sepia</button>
+                <button class="theme-option" data-theme="dark" style="background-color: #1E293B; color: #E2E8F0;">Dark</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Reader main content screen (Injects placeholder text) -->
+        <div class="reading-layout">
+          <div class="reading-content-container">
+            <div class="reading-title-area">
+              <div class="reading-book-title" id="reader-book-title-text">Book Title</div>
+              <h1 class="reading-chapter-title font-serif" id="reader-chapter-title-text">Chapter Title</h1>
+            </div>
+            <div id="reader-content-area"></div>
+            <!-- Pagination buttons hidden due to mock setup -->
+            <nav class="reading-navigation" style="display: none;">
+              <button id="reader-btn-prev"></button>
+              <button id="reader-btn-next"></button>
+            </nav>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. ABOUT VIEW -->
+      <section id="about-view" class="view-section section-padding">
+        <div class="container about-section">
+          <h1 class="font-serif">About PageTurner</h1>
+          <p>PageTurner is a digital reading platform designed for bookworms, writers, and casual readers alike. We believe that technology should serve literature, not overshadow it. Hence, our design focuses entirely on white space, typography, and visual comfort, creating the quiet environment you need to immerse yourself in stories.</p>
+          <p>Whether you are seeking the serialized weekly releases of modern Web Novels or the structured pages of classic E-Books, PageTurner serves as a curated library of high-quality titles. Our catalog is freely accessible for early previews, with direct connections to authors and publishers via official stores.</p>
+          <p>Thank you for choosing PageTurner as your reading partner. Grab a warm cup of coffee, adjust your font size, and let yourself get lost in the words.</p>
+        </div>
+      </section>
+
+      <!-- 6. CONTACT VIEW -->
+      <section id="contact-view" class="view-section section-padding">
+        <div class="container">
+          <div class="section-header" style="text-align: center;">
+            <h1 class="font-serif" style="font-size: 2.5rem; margin-bottom: 0.5rem;">Get in Touch</h1>
+            <p>Have questions about publishing, copyright, or technical support? Drop us a message.</p>
+          </div>
+          <div class="contact-grid">
+            <!-- Support Channel Details details -->
+            <div class="contact-info">
+              <h3>Support Channels</h3>
+              <p>Our customer service and editorial staff are available to help you with your publishing accounts, reading queries, or copyright claims.</p>
+              <div class="contact-details">
+                <div class="contact-item"><div class="contact-item-icon">✉</div><div><div style="font-weight: 600;">Support Email</div><div style="color: var(--text-secondary); font-size: 0.9rem;">viswaskasi2006@gmail.com</div></div></div>
+                <div class="contact-item"><div class="contact-item-icon">📞</div><div><div style="font-weight: 600;">Office Phone</div><div style="color: var(--text-secondary); font-size: 0.9rem;">8074800497</div></div></div>
+                <div class="contact-item"><div class="contact-item-icon">📍</div><div><div style="font-weight: 600;">Location</div><div style="color: var(--text-secondary); font-size: 0.9rem;">visakhapatnam, Andhra Pradesh, India</div></div></div>
+              </div>
+            </div>
+            <!-- Contact submit form -->
+            <div class="review-form" style="margin-bottom: 0;">
+              <h4>Send a Message</h4>
+              <form onsubmit="event.preventDefault(); alert('Message sent!'); this.reset();">
+                <div class="form-group"><label for="contact-name">Your Name</label><input type="text" id="contact-name" class="form-control" required /></div>
+                <div class="form-group"><label for="contact-email">Email Address</label><input type="email" id="contact-email" class="form-control" required /></div>
+                <div class="form-group"><label for="contact-message">Message Details</label><textarea id="contact-message" class="form-control" rows="5" placeholder="Write your comments here..." required></textarea></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. ADD BOOK VIEW -->
+      <section id="add-book-view" class="view-section section-padding">
+        <div class="container" style="max-width: 600px;">
+          <h1 class="font-serif" style="font-size: 2.5rem; margin-bottom: 0.5rem; text-align: center;">Add a New Title</h1>
+          <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">Contribute a new book or web novel to our catalog.</p>
+          
+          <!-- Book Publisher creation form panel -->
+          <div class="review-form">
+            <form id="add-book-form">
+              <!-- Book title -->
+              <div class="form-group">
+                <label for="add-title">Book Title</label>
+                <input type="text" id="add-title" class="form-control" required />
+              </div>
+              <!-- Author -->
+              <div class="form-group">
+                <label for="add-author">Author Name</label>
+                <input type="text" id="add-author" class="form-control" required />
+              </div>
+              <!-- Genre + format split selection -->
+              <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div>
+                  <label for="add-category">Genre / Category</label>
+                  <select id="add-category" class="form-control" style="background-color: #FFF; border: 1px solid var(--border);" required>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="Education">Education</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="add-type">Format Type</label>
+                  <select id="add-type" class="form-control" style="background-color: #FFF; border: 1px solid var(--border);" required>
+                    <option value="book">E-Book</option>
+                    <option value="novel">Web Novel</option>
+                  </select>
+                </div>
+              </div>
+              <!-- Rating + Chapters selection -->
+              <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div>
+                  <label for="add-rating">Rating (1.0 to 5.0)</label>
+                  <input type="number" id="add-rating" class="form-control" min="1.0" max="5.0" step="0.1" value="4.5" required />
+                </div>
+                <div>
+                  <label for="add-chapters">Chapter Count</label>
+                  <input type="number" id="add-chapters" class="form-control" min="1" value="10" required />
+                </div>
+              </div>
+              <!-- Tag options -->
+              <div class="form-group">
+                <label for="add-tags">Tags (comma-separated)</label>
+                <input type="text" id="add-tags" class="form-control" placeholder="e.g. Magic, Adventure, Quest" required />
+              </div>
+              <!-- Summary hook line -->
+              <div class="form-group">
+                <label for="add-short-desc">Short Summary</label>
+                <input type="text" id="add-short-desc" class="form-control" placeholder="A brief one-sentence hook..." required />
+              </div>
+              <!-- Full synopsis detail body -->
+              <div class="form-group">
+                <label for="add-description">Full Synopsis</label>
+                <textarea id="add-description" class="form-control" rows="5" placeholder="Write the full synopsis of the story..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 0.85rem 1.5rem;">Publish to Catalog</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+      <div class="container footer-grid">
+        <!-- Brand Summary column -->
+        <div class="footer-brand">
+          <a href="#" class="logo font-serif" style="margin-bottom: 1rem; display: inline-flex;">📖 PageTurner</a>
+          <p>A simple, modern online platform for books and web novels. Dedicated to distraction-free reading, visual simplicity, and accessible typography.</p>
+          <div class="social-links">
+            <a href="https://twitter.com" target="_blank">🐦</a><a href="https://facebook.com" target="_blank">👥</a><a href="https://instagram.com" target="_blank">📸</a><a href="https://github.com" target="_blank">💻</a>
+          </div>
+        </div>
+        <!-- Explore column -->
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#" data-view="home-view">Home Page</a></li>
+            <li><a href="#" data-view="catalog-view" data-type="Books">E-Books Catalogue</a></li>
+            <li><a href="#" data-view="catalog-view" data-type="Novels">Web Novels</a></li>
+            <li><a href="#" data-view="catalog-view">Genres / Categories</a></li>
+          </ul>
+        </div>
+        <!-- Company column -->
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#" data-view="about-view">About Us</a></li>
+            <li><a href="#" data-view="about-view">Careers</a></li>
+            <li><a href="#" data-view="contact-view">Editorial Team</a></li>
+            <li><a href="#" data-view="contact-view">Contact Support</a></li>
+          </ul>
+        </div>
+        <!-- Legal column -->
+        <div class="footer-col">
+          <h4>Legal & Author</h4>
+          <ul>
+            <li><a href="#" data-view="about-view">Terms of Service</a></li>
+            <li><a href="#" data-view="about-view">Privacy Policy</a></li>
+            <li><a href="#" data-view="about-view">Copyright Infringement</a></li>
+            <li><a href="#" data-view="contact-view">Publishing Partners</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Copyright bottom panel -->
+      <div class="container footer-bottom">
+        <p>&copy; 2026 PageTurner Publishing Ltd. All rights reserved.</p>
+        <p>Built with ❤️ for passionate readers.</p>
+      </div>
+    </footer>
+
+    <!-- ==================== AUTHENTICATIONS POPUP MODAL ==================== -->
+    <div class="modal-overlay" id="auth-modal">
+      <div class="modal-content">
+        <!-- Close overlay button -->
+        <button class="modal-close">✕</button>
+        <h2 class="modal-title font-serif">Welcome Back</h2>
+        <p class="modal-desc">Access your personal bookmark shelf and syncing logs.</p>
+        
+        <!-- Toggle Tabs -->
+        <div class="modal-tabs">
+          <div class="modal-tab active">Log In</div>
+          <div class="modal-tab">Register</div>
+        </div>
+        
+        <!-- Tab Form view 1: Log In -->
+        <div class="modal-form-view active">
+          <form>
+            <div class="form-group"><label for="login-email">Email Address</label><input type="email" id="login-email" class="form-control" required /></div>
+            <div class="form-group"><label for="login-password">Password</label><input type="password" id="login-password" class="form-control" required /></div>
+            <button type="submit" class="btn btn-primary btn-auth-submit" style="width: 100%; margin-top: 1rem;">Log In</button>
+          </form>
+        </div>
+        
+        <!-- Tab Form view 2: Register -->
+        <div class="modal-form-view">
+          <form>
+            <div class="form-group"><label for="register-name">Full Name</label><input type="text" id="register-name" class="form-control" required /></div>
+            <div class="form-group"><label for="register-email">Email Address</label><input type="email" id="register-email" class="form-control" required /></div>
+            <div class="form-group"><label for="register-password">Password</label><input type="password" id="register-password" class="form-control" required /></div>
+            <button type="submit" class="btn btn-primary btn-auth-submit" style="width: 100%; margin-top: 1rem;">Create Account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Dynamic Module Script compilation entry point -->
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
