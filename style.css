@@ -37,31 +37,6 @@
 }
 
 /* ==========================================================================
-   GLOBAL DARK MODE OVERRIDES
-   ========================================================================== 
-   Simply overriding CSS variables dynamically changes colors of all elements
-   referencing these tokens, saving hundreds of lines of duplicate CSS selectors. */
-body.dark-mode {
-  --bg: #0F172A;            /* Dark Slate blue-black background */
-  --bg-secondary: #1E293B;  /* Slate blue card/inner content background */
-  
-  --text-primary: #F8FAFC;  /* High contrast off-white text */
-  --text-secondary: #94A3B8; /* Muted gray-blue secondary text */
-  
-  --border: #334155;        /* Slate blue border separator line */
-  --border-hover: #60A5FA;  /* Bright slate blue hover border */
-  
-  /* Section background bands for dark mode */
-  --bg-hero: #1E293B;       
-  --bg-cream: #1C1917;      /* Warm charcoal tone block */
-  --bg-sage: #022C22;       /* Deep pine green block */
-  --bg-linen: #1E293B;
-  
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-}
-
-/* ==========================================================================
    SECTION BANDS & MARGINS (Page Separation Layout)
    ========================================================================== */
 .bg-hero { 
@@ -135,18 +110,79 @@ button {
 }
 
 /* ==========================================================================
-   SINGLE PAGE ROUTING LAYER
+   SINGLE PAGE ROUTING LAYER (CSS ONLY)
    ========================================================================== */
 .view-section { 
   display: none; /* Hide all page sections by default */
 }
-.view-section.active { 
-  display: block; /* Display only active section marked by JavaScript routing */
+
+/* Default view: show #home-view when there is no hash or hash is #home-view */
+#home-view {
+  display: block;
+}
+
+/* Hide #home-view if another view is targeted */
+body:has(#catalog-view:target) #home-view,
+body:has(#about-view:target) #home-view,
+body:has(#contact-view:target) #home-view,
+body:has(#add-book-view:target) #home-view,
+body:has([id^="details-view-"]:target) #home-view,
+body:has([id^="reader-view-"]:target) #home-view {
+  display: none;
+}
+
+/* Display the targeted section */
+.view-section:target { 
+  display: block !important;
   animation: fadeIn 0.2s ease-out; 
 }
+
 @keyframes fadeIn { 
   from { opacity: 0; transform: translateY(2px); } 
   to { opacity: 1; transform: translateY(0); } 
+}
+
+/* Navigation active highlighting based on hash target */
+body:has(#home-view:target) .nav-links a[data-view="home-view"],
+body:has(#catalog-view:target) .nav-links a[data-view="catalog-view"],
+body:has(#add-book-view:target) .nav-links a[data-view="add-book-view"],
+body:has(#about-view:target) .nav-links a[data-view="about-view"],
+body:has(#contact-view:target) .nav-links a[data-view="contact-view"],
+body:has(#home-view:target) .mobile-nav-links a[data-view="home-view"],
+body:has(#catalog-view:target) .mobile-nav-links a[data-view="catalog-view"],
+body:has(#add-book-view:target) .mobile-nav-links a[data-view="add-book-view"],
+body:has(#about-view:target) .mobile-nav-links a[data-view="about-view"],
+body:has(#contact-view:target) .mobile-nav-links a[data-view="contact-view"] {
+  color: var(--primary) !important;
+}
+
+body:has(#home-view:target) .nav-links a[data-view="home-view"]::after,
+body:has(#catalog-view:target) .nav-links a[data-view="catalog-view"]::after,
+body:has(#add-book-view:target) .nav-links a[data-view="add-book-view"]::after,
+body:has(#about-view:target) .nav-links a[data-view="about-view"]::after,
+body:has(#contact-view:target) .nav-links a[data-view="contact-view"]::after {
+  content: ''; 
+  position: absolute; 
+  bottom: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 2px; 
+  background-color: var(--primary); 
+}
+
+/* Default active styling when no hash is targeted */
+body:not(:has(.view-section:target)) .nav-links a[data-view="home-view"],
+body:not(:has(.view-section:target)) .mobile-nav-links a[data-view="home-view"] {
+  color: var(--primary) !important;
+}
+body:not(:has(.view-section:target)) .nav-links a[data-view="home-view"]::after {
+  content: ''; 
+  position: absolute; 
+  bottom: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 2px; 
+  background-color: var(--primary); 
 }
 
 /* ==========================================================================
@@ -218,18 +254,8 @@ header {
   padding: 0.5rem 0; 
   position: relative; 
 }
-.nav-links a:hover, .nav-links a.active { 
+.nav-links a:hover { 
   color: var(--primary); 
-}
-/* Bottom line indicator for active link view */
-.nav-links a.active::after { 
-  content: ''; 
-  position: absolute; 
-  bottom: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 2px; 
-  background-color: var(--primary); 
 }
 .header-right { 
   display: flex; 
@@ -261,9 +287,6 @@ header {
   padding: 1rem 1.5rem; 
   background-color: var(--bg); 
 }
-.mobile-nav.open { 
-  display: block; 
-}
 .mobile-nav-links { 
   display: flex; 
   flex-direction: column; 
@@ -276,9 +299,6 @@ header {
   color: var(--text-secondary); 
   display: block; 
 }
-.mobile-nav-links a.active { 
-  color: var(--primary); 
-}
 
 /* ==========================================================================
    LIVE SEARCH SLIDE-DOWN DRAWER
@@ -288,9 +308,6 @@ header {
   border-bottom: 1px solid var(--border); 
   padding: 1rem 0; 
   display: none; 
-}
-.search-container.active { 
-  display: block; 
 }
 .search-wrapper { 
   position: relative; 
@@ -619,7 +636,7 @@ header {
   border-left: 3px solid transparent; 
   padding-left: 0.5rem; 
 }
-.filter-btn:hover, .filter-btn.active { 
+.filter-btn:hover { 
   color: var(--primary); 
   border-left-color: var(--primary); /* Left highlight line indicator */
 }
@@ -820,9 +837,8 @@ header {
 }
 .reading-progress-bar { 
   height: 100%; 
-  width: 0%; 
+  width: 100%; 
   background-color: var(--primary); 
-  transition: width 0.1s ease; 
 }
 .reading-controls-bar { 
   display: flex; 
@@ -859,10 +875,6 @@ header {
   font-size: 0.875rem; 
   font-weight: 500; 
 }
-.theme-option.active { 
-  background-color: var(--primary); 
-  color: #FFFFFF; 
-}
 .reading-layout { 
   padding: 4rem 0 6rem; 
 }
@@ -893,50 +905,6 @@ header {
 }
 
 /* ==========================================================================
-   E-READER SPECIFIC FILTER OVERRIDES
-   ========================================================================== */
-/* Sepia Theme */
-body.theme-sepia { 
-  background-color: #FDF6E3; 
-  color: #586E75; 
-}
-body.theme-sepia header, body.theme-sepia .reading-header-wrap { 
-  background-color: #FDF6E3; 
-  border-color: #EEE8D5; 
-  color: #586E75; 
-}
-body.theme-sepia .reading-title-area { 
-  border-color: #EEE8D5; 
-}
-body.theme-sepia .reading-control-btn, body.theme-sepia .theme-selector { 
-  border-color: #EEE8D5; 
-}
-
-/* Dark Theme */
-body.theme-dark { 
-  background-color: #0F172A; 
-  color: #E2E8F0; 
-}
-body.theme-dark header, body.theme-dark .reading-header-wrap { 
-  background-color: #0F172A; 
-  border-color: #1E293B; 
-  color: #E2E8F0; 
-}
-body.theme-dark .navbar .logo, body.theme-dark .navbar a.active { 
-  color: #FFFFFF; 
-}
-body.theme-dark .navbar a { 
-  color: #94A3B8; 
-}
-body.theme-dark .reading-title-area { 
-  border-color: #1E293B; 
-}
-body.theme-dark .reading-control-btn, body.theme-dark .theme-selector { 
-  border-color: #1E293B; 
-  color: #94A3B8; 
-}
-
-/* ==========================================================================
    MODAL DIALOG LAYOUT & TRANSITIONS
    ========================================================================== */
 .modal-overlay { 
@@ -950,9 +918,6 @@ body.theme-dark .reading-control-btn, body.theme-dark .theme-selector {
   display: none; 
   align-items: center; 
   justify-content: center; 
-}
-.modal-overlay.active { 
-  display: flex; 
 }
 .modal-content { 
   background-color: #FFFFFF; 
@@ -1000,15 +965,8 @@ body.theme-dark .reading-control-btn, body.theme-dark .theme-selector {
   border-bottom: 2px solid transparent; 
   cursor: pointer; 
 }
-.modal-tab.active { 
-  color: var(--primary); 
-  border-bottom-color: var(--primary); 
-}
 .modal-form-view { 
   display: none; 
-}
-.modal-form-view.active { 
-  display: block; 
 }
 
 /* ==========================================================================
@@ -1177,10 +1135,10 @@ footer {
 /* Mobile Layouts (Up to 768px) */
 @media (max-width: 768px) {
   .nav-links, .header-right .btn-primary { 
-    display: none; /* Hide desktop links and buttons, reveal mobile hamburger instead */
+    display: none !important; /* Hide desktop links and buttons, reveal mobile hamburger instead */
   }
   .mobile-menu-toggle { 
-    display: block; 
+    display: block !important; 
   }
   .books-grid { 
     grid-template-columns: repeat(2, 1fr); 
@@ -1214,4 +1172,185 @@ footer {
     gap: 1rem; 
     text-align: center; 
   }
+}
+
+/* ==========================================================================
+   CSS INTERACTIVE STATE TOGGLES (NO JAVASCRIPT HACKS)
+   ========================================================================== */
+/* Global Theme Selector */
+#btn-theme-toggle-label::after {
+  content: '🌙';
+}
+#theme-toggle:checked ~ header #btn-theme-toggle-label::after {
+  content: '☀️';
+}
+#theme-toggle:checked ~ header,
+#theme-toggle:checked ~ main,
+#theme-toggle:checked ~ footer,
+#theme-toggle:checked ~ #auth-modal {
+  --bg: #0F172A;
+  --bg-secondary: #1E293B;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --border: #334155;
+  --border-hover: #60A5FA;
+  --bg-hero: #1E293B;       
+  --bg-cream: #1C1917;
+  --bg-sage: #022C22;
+  --bg-linen: #1E293B;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+}
+body:has(#theme-toggle:checked) {
+  background-color: #0F172A;
+  color: #F8FAFC;
+}
+
+/* Search drop-down container toggle */
+#search-toggle:checked ~ header .search-container {
+  display: block !important;
+}
+
+/* Mobile nav menu toggle */
+#mobile-toggle:checked ~ header .mobile-nav {
+  display: block !important;
+}
+
+/* Sign-in overlay popup modal toggle */
+#auth-toggle:checked ~ #auth-modal {
+  display: flex !important;
+}
+
+/* Auth Modal Tabs toggle */
+#auth-tab-login:checked ~ #auth-modal .login-view {
+  display: block !important;
+}
+#auth-tab-register:checked ~ #auth-modal .register-view {
+  display: block !important;
+}
+#auth-tab-login:checked ~ #auth-modal label[for="auth-tab-login"],
+#auth-tab-register:checked ~ #auth-modal label[for="auth-tab-register"] {
+  color: var(--primary) !important;
+  border-bottom-color: var(--primary) !important;
+}
+
+/* Catalog sidebar count badges & label highlights */
+.catalog-sidebar label {
+  cursor: pointer;
+}
+#genre-all:checked ~ main .catalog-sidebar label[for="genre-all"],
+#genre-fantasy:checked ~ main .catalog-sidebar label[for="genre-fantasy"],
+#genre-romance:checked ~ main .catalog-sidebar label[for="genre-romance"],
+#genre-mystery:checked ~ main .catalog-sidebar label[for="genre-mystery"],
+#genre-thriller:checked ~ main .catalog-sidebar label[for="genre-thriller"],
+#genre-scifi:checked ~ main .catalog-sidebar label[for="genre-scifi"],
+#genre-education:checked ~ main .catalog-sidebar label[for="genre-education"] {
+  color: var(--primary) !important;
+  border-left-color: var(--primary) !important;
+}
+#format-all:checked ~ main .catalog-sidebar label[for="format-all"],
+#format-book:checked ~ main .catalog-sidebar label[for="format-book"],
+#format-novel:checked ~ main .catalog-sidebar label[for="format-novel"] {
+  color: var(--primary) !important;
+  border-left-color: var(--primary) !important;
+}
+
+/* Catalog Filtering Rules */
+.catalog-books-grid .book-card {
+  display: flex;
+}
+#genre-fantasy:checked ~ main .catalog-books-grid .book-card:not(.genre-fantasy),
+#genre-romance:checked ~ main .catalog-books-grid .book-card:not(.genre-romance),
+#genre-mystery:checked ~ main .catalog-books-grid .book-card:not(.genre-mystery),
+#genre-thriller:checked ~ main .catalog-books-grid .book-card:not(.genre-thriller),
+#genre-scifi:checked ~ main .catalog-books-grid .book-card:not(.genre-scifi),
+#genre-education:checked ~ main .catalog-books-grid .book-card:not(.genre-education) {
+  display: none !important;
+}
+#format-book:checked ~ main .catalog-books-grid .book-card:not(.format-book),
+#format-novel:checked ~ main .catalog-books-grid .book-card:not(.format-novel) {
+  display: none !important;
+}
+
+/* Catalog dynamic title text toggling */
+.catalog-title-text {
+  display: none;
+}
+#genre-all:checked ~ main #title-all,
+#genre-fantasy:checked ~ main #title-fantasy,
+#genre-romance:checked ~ main #title-romance,
+#genre-mystery:checked ~ main #title-mystery,
+#genre-thriller:checked ~ main #title-thriller,
+#genre-scifi:checked ~ main #title-scifi,
+#genre-education:checked ~ main #title-education {
+  display: block !important;
+}
+
+/* E-Reader styling & customization */
+.reading-text {
+  font-size: inherit; /* Inherit font size from container */
+}
+
+/* Reader Font Size modifier controls */
+.reading-controls-group label {
+  cursor: pointer;
+}
+#reader-font-sm:checked ~ main .reading-content-container { font-size: 0.95rem !important; }
+#reader-font-md:checked ~ main .reading-content-container { font-size: 1.15rem !important; }
+#reader-font-lg:checked ~ main .reading-content-container { font-size: 1.4rem !important; }
+#reader-font-sm:checked ~ main label.font-btn-sm,
+#reader-font-md:checked ~ main label.font-btn-md,
+#reader-font-lg:checked ~ main label.font-btn-lg {
+  background-color: var(--primary) !important;
+  color: #FFFFFF !important;
+  border-color: var(--primary) !important;
+}
+
+/* Reader Theme modifier controls */
+.theme-selector label {
+  cursor: pointer;
+}
+#reader-theme-light:checked ~ main label.theme-option-light {
+  background-color: var(--primary) !important;
+  color: #FFFFFF !important;
+}
+#reader-theme-sepia:checked ~ main label.theme-option-sepia {
+  background-color: #586E75 !important;
+  color: #FDF6E3 !important;
+}
+#reader-theme-dark:checked ~ main label.theme-option-dark {
+  background-color: #60A5FA !important;
+  color: #0F172A !important;
+}
+
+#reader-theme-sepia:checked ~ main .reading-layout,
+#reader-theme-sepia:checked ~ main .reading-header-wrap {
+  background-color: #FDF6E3 !important;
+  color: #586E75 !important;
+  border-color: #E6DFCB !important;
+}
+#reader-theme-sepia:checked ~ main .reading-content-container,
+#reader-theme-sepia:checked ~ main .reading-controls-bar {
+  color: #586E75 !important;
+}
+#reader-theme-sepia:checked ~ main .reading-control-btn {
+  color: #586E75 !important;
+  border-color: #E6DFCB !important;
+  background-color: #F5EEDC !important;
+}
+
+#reader-theme-dark:checked ~ main .reading-layout,
+#reader-theme-dark:checked ~ main .reading-header-wrap {
+  background-color: #0F172A !important;
+  color: #E2E8F0 !important;
+  border-color: #1E293B !important;
+}
+#reader-theme-dark:checked ~ main .reading-content-container,
+#reader-theme-dark:checked ~ main .reading-controls-bar {
+  color: #E2E8F0 !important;
+}
+#reader-theme-dark:checked ~ main .reading-control-btn {
+  color: #94A3B8 !important;
+  border-color: #1E293B !important;
+  background-color: #0F172A !important;
 }

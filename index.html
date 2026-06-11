@@ -5,74 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PageTurner - Premium Books & Web Novels Platform</title>
     
-    <!-- 1. Typography Imports (Inter for interface utility texts, Playfair Display for book covers & headings) -->
+    <!-- Typography Imports -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&display=swap" rel="stylesheet">
     
-    <!-- 2. Search Engine Optimization (SEO) Meta Tags -->
+    <!-- SEO Meta Tags -->
     <meta name="description" content="Read free online novels and books in a modern, clean, distraction-free environment." />
+    
+    <!-- Root Stylesheet Link (No Javascript or Vite Dev server paths) -->
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <!-- ==================== CSS INTERACTIVE SELECTORS (NO JAVASCRIPT HACKS) ==================== -->
+    <input type="checkbox" id="theme-toggle" style="display: none;">
+    <input type="checkbox" id="search-toggle" style="display: none;">
+    <input type="checkbox" id="mobile-toggle" style="display: none;">
+    <input type="checkbox" id="auth-toggle" style="display: none;">
     
+    <!-- Auth modal tabs -->
+    <input type="radio" name="auth-tab" id="auth-tab-login" checked style="display: none;">
+    <input type="radio" name="auth-tab" id="auth-tab-register" style="display: none;">
+    
+    <!-- Catalog Filters (Genres) -->
+    <input type="radio" name="genre-filter" id="genre-all" checked style="display: none;">
+    <input type="radio" name="genre-filter" id="genre-fantasy" style="display: none;">
+    <input type="radio" name="genre-filter" id="genre-romance" style="display: none;">
+    <input type="radio" name="genre-filter" id="genre-mystery" style="display: none;">
+    <input type="radio" name="genre-filter" id="genre-thriller" style="display: none;">
+    <input type="radio" name="genre-filter" id="genre-scifi" style="display: none;">
+    <input type="radio" name="genre-filter" id="genre-education" style="display: none;">
+    
+    <!-- Catalog Filters (Format Type) -->
+    <input type="radio" name="format-filter" id="format-all" checked style="display: none;">
+    <input type="radio" name="format-filter" id="format-book" style="display: none;">
+    <input type="radio" name="format-filter" id="format-novel" style="display: none;">
+    
+    <!-- Reader Config (Theme) -->
+    <input type="radio" name="reader-theme" id="reader-theme-light" checked style="display: none;">
+    <input type="radio" name="reader-theme" id="reader-theme-sepia" style="display: none;">
+    <input type="radio" name="reader-theme" id="reader-theme-dark" style="display: none;">
+    
+    <!-- Reader Config (Font Size) -->
+    <input type="radio" name="reader-font" id="reader-font-sm" style="display: none;">
+    <input type="radio" name="reader-font" id="reader-font-md" checked style="display: none;">
+    <input type="radio" name="reader-font" id="reader-font-lg" style="display: none;">
+
     <!-- ==================== STICKY HEADER NAVBAR ==================== -->
     <header>
       <div class="container navbar">
-        <!-- Application Logo (Acts as navigation trigger to return home) -->
-        <a href="#" class="logo" id="header-logo" aria-label="PageTurner Home">
+        <a href="#home-view" class="logo" id="header-logo" aria-label="PageTurner Home">
           <span class="logo-icon">📖</span>
           <span class="font-serif">PageTurner</span>
         </a>
         
-        <!-- Desktop Nav links (Visible on screen sizes above 768px. Maps view IDs via data-view) -->
         <nav aria-label="Main Navigation">
           <ul class="nav-links">
-            <li><a href="#" class="active" data-view="home-view">Home</a></li>
-            <li><a href="#" data-view="catalog-view" data-type="Books">Books</a></li>
-            <li><a href="#" data-view="catalog-view" data-type="Novels">Novels</a></li>
-            <li><a href="#" data-view="catalog-view">Categories</a></li>
-            <li><a href="#" data-view="add-book-view">Add Book</a></li>
-            <li><a href="#" data-view="about-view">About</a></li>
-            <li><a href="#" data-view="contact-view">Contact</a></li>
+            <li><a href="#home-view" data-view="home-view">Home</a></li>
+            <li><a href="#catalog-view" data-view="catalog-view">Catalog</a></li>
+            <li><a href="#add-book-view" data-view="add-book-view">Add Book</a></li>
+            <li><a href="#about-view" data-view="about-view">About</a></li>
+            <li><a href="#contact-view" data-view="contact-view">Contact</a></li>
           </ul>
         </nav>
         
-        <!-- Utility buttons pane -->
         <div class="header-right">
-          <!-- Global Slate Theme Toggle -->
-          <button class="search-trigger-btn" id="btn-theme-toggle" aria-label="Toggle Theme" title="Toggle Dark Mode" style="margin-right: 0.25rem;">🌙</button>
+          <!-- Theme Switcher (Triggers input checked state via CSS label hack) -->
+          <label for="theme-toggle" class="search-trigger-btn" id="btn-theme-toggle-label" title="Toggle Dark Mode" style="cursor: pointer; margin-right: 0.25rem;"></label>
           
-          <!-- Slide-down Search Input Toggle -->
-          <button class="search-trigger-btn" id="btn-search-trigger" aria-label="Toggle Search bar">🔍</button>
+          <!-- Search trigger -->
+          <label for="search-toggle" class="search-trigger-btn" aria-label="Toggle Search bar" style="cursor: pointer;">🔍</label>
           
-          <!-- Sign In modal trigger button -->
-          <button class="btn btn-primary auth-trigger-btn">Sign In</button>
+          <!-- Modal activation trigger -->
+          <label for="auth-toggle" class="btn btn-primary auth-trigger-btn" style="cursor: pointer;">Sign In</label>
           
-          <!-- Mobile Hamburger Toggle button (Triggers the mobile drawer view below) -->
-          <button class="mobile-menu-toggle" id="btn-mobile-toggle" aria-label="Toggle mobile navigation drawer">☰</button>
+          <!-- Mobile toggle trigger -->
+          <label for="mobile-toggle" class="mobile-menu-toggle" aria-label="Toggle mobile navigation drawer" style="cursor: pointer;">☰</label>
         </div>
       </div>
       
       <!-- ==================== MOBILE NAVIGATION DRAWER ==================== -->
-      <!-- Collapsed side menu drawer that slides down on mobile screen displays -->
       <div class="mobile-nav" id="mobile-navigation">
         <ul class="mobile-nav-links">
-          <li><a href="#" class="active" data-view="home-view">Home</a></li>
-          <li><a href="#" data-view="catalog-view" data-type="Books">Books</a></li>
-          <li><a href="#" data-view="catalog-view" data-type="Novels">Novels</a></li>
-          <li><a href="#" data-view="catalog-view">Categories</a></li>
-          <li><a href="#" data-view="add-book-view">Add Book</a></li>
-          <li><a href="#" data-view="about-view">About</a></li>
-          <li><a href="#" data-view="contact-view">Contact</a></li>
+          <li><a href="#home-view" data-view="home-view">Home</a></li>
+          <li><a href="#catalog-view" data-view="catalog-view">Catalog</a></li>
+          <li><a href="#add-book-view" data-view="add-book-view">Add Book</a></li>
+          <li><a href="#about-view" data-view="about-view">About</a></li>
+          <li><a href="#contact-view" data-view="contact-view">Contact</a></li>
         </ul>
-        <button class="btn btn-primary auth-trigger-btn" style="width: 100%;">Sign In</button>
+        <label for="auth-toggle" class="btn btn-primary auth-trigger-btn" style="width: 100%; text-align: center; display: block; cursor: pointer;">Sign In</label>
       </div>
       
       <!-- ==================== LIVE SEARCH INPUT OVERLAY ==================== -->
-      <!-- Drawer that drops down when clicking the search icon to filter books dynamically -->
       <div class="search-container">
         <div class="container search-wrapper">
-          <input type="search" class="search-input" placeholder="Search by book titles, authors, genres..." aria-label="Search Catalog" />
+          <input type="search" class="search-input" placeholder="Search functionality simulated. View Catalog to filter items..." aria-label="Search Catalog" />
           <span class="search-icon-inside">🔍</span>
         </div>
       </div>
@@ -82,7 +109,7 @@
     <main>
       
       <!-- 1. HOME PAGE VIEW -->
-      <section id="home-view" class="view-section active">
+      <section id="home-view" class="view-section">
         <!-- Hero Spotlight banner -->
         <div class="hero-section bg-hero">
           <div class="container hero-grid">
@@ -90,15 +117,14 @@
               <h1 class="font-serif">Discover Your Next Favorite Story</h1>
               <p>Welcome to PageTurner, a clean and professional reading sanctuary. Browse thousands of curated books and web novels in a distraction-free environment. Start reading for free today.</p>
               <div class="hero-actions">
-                <button class="btn btn-primary" id="hero-cta-primary">Browse Books</button>
-                <button class="btn btn-secondary" id="hero-cta-secondary">Start Reading</button>
+                <a href="#catalog-view" class="btn btn-primary">Browse Books</a>
+                <a href="#reader-view-1" class="btn btn-secondary">Start Reading</a>
               </div>
             </div>
-            <!-- Showcase stack containing 3D rotated books covers -->
             <div class="hero-showcase">
-              <img src="/fantasy_cover.png" alt="Chronicles of Eldoria Cover" class="showcase-book showcase-book-1" />
-              <img src="/romance_cover.png" alt="Whispers of the Heart Cover" class="showcase-book showcase-book-2" />
-              <img src="/scifi_cover.png" alt="Beyond the Horizon Cover" class="showcase-book showcase-book-3" />
+              <img src="public/fantasy_cover.png" alt="Chronicles of Eldoria Cover" class="showcase-book showcase-book-1" />
+              <img src="public/romance_cover.png" alt="Whispers of the Heart Cover" class="showcase-book showcase-book-2" />
+              <img src="public/scifi_cover.png" alt="Beyond the Horizon Cover" class="showcase-book showcase-book-3" />
             </div>
           </div>
         </div>
@@ -111,35 +137,181 @@
               <p>Find stories that speak to you across our six handpicked reading genres</p>
             </div>
             <div class="categories-grid">
-              <div class="category-card" data-category="Fantasy"><span class="category-icon">✨</span><div class="category-title">Fantasy</div></div>
-              <div class="category-card" data-category="Romance"><span class="category-icon">💖</span><div class="category-title">Romance</div></div>
-              <div class="category-card" data-category="Mystery"><span class="category-icon">🕵️</span><div class="category-title">Mystery</div></div>
-              <div class="category-card" data-category="Thriller"><span class="category-icon">🔪</span><div class="category-title">Thriller</div></div>
-              <div class="category-card" data-category="Sci-Fi"><span class="category-icon">🚀</span><div class="category-title">Sci-Fi</div></div>
-              <div class="category-card" data-category="Education"><span class="category-icon">🎓</span><div class="category-title">Education</div></div>
+              <a href="#catalog-view"><label for="genre-fantasy" class="category-card"><span class="category-icon">✨</span><div class="category-title">Fantasy</div></label></a>
+              <a href="#catalog-view"><label for="genre-romance" class="category-card"><span class="category-icon">💖</span><div class="category-title">Romance</div></label></a>
+              <a href="#catalog-view"><label for="genre-mystery" class="category-card"><span class="category-icon">🕵️</span><div class="category-title">Mystery</div></label></a>
+              <a href="#catalog-view"><label for="genre-thriller" class="category-card"><span class="category-icon">🔪</span><div class="category-title">Thriller</div></label></a>
+              <a href="#catalog-view"><label for="genre-scifi" class="category-card"><span class="category-icon">🚀</span><div class="category-title">Sci-Fi</div></label></a>
+              <a href="#catalog-view"><label for="genre-education" class="category-card"><span class="category-icon">🎓</span><div class="category-title">Education</div></label></a>
             </div>
           </div>
         </div>
 
-        <!-- Featured list (Dynamically rendered by JS) -->
+        <!-- Featured list -->
         <div class="section-padding">
           <div class="container">
             <div class="section-header">
               <h2>Featured Books</h2>
               <p>Highly rated and editor-approved choices for this week</p>
             </div>
-            <div class="books-grid featured-books-grid"></div>
+            <div class="books-grid">
+              <!-- Book 1 -->
+              <article class="book-card">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/fantasy_cover.png" alt="The Chronicles of Eldoria">
+                  <span class="book-badge">Web Novel</span>
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Fantasy</span>
+                    <span class="book-rating">★ 4.8</span>
+                  </div>
+                  <h3 class="book-title">The Chronicles of Eldoria</h3>
+                  <div class="book-author">By Lyra Vance</div>
+                  <p class="book-desc">An apprentice scribe unlocks an ancient stone archway, unleashing a forgotten magic.</p>
+                  <a href="#details-view-1" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+              <!-- Book 2 -->
+              <article class="book-card">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/romance_cover.png" alt="Pride and Prejudice">
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Romance</span>
+                    <span class="book-rating">★ 4.7</span>
+                  </div>
+                  <h3 class="book-title">Pride and Prejudice</h3>
+                  <div class="book-author">By Jane Austen</div>
+                  <p class="book-desc">A classic comedy of manners charting the turbulent relationship between Elizabeth Bennet and Mr. Darcy.</p>
+                  <a href="#details-view-2" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+              <!-- Book 3 -->
+              <article class="book-card">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/scifi_cover.png" alt="The Time Machine">
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Sci-Fi</span>
+                    <span class="book-rating">★ 4.5</span>
+                  </div>
+                  <h3 class="book-title">The Time Machine</h3>
+                  <div class="book-author">By H. G. Wells</div>
+                  <p class="book-desc">A Victorian scientist constructs a machine that projects him into the year 802,701.</p>
+                  <a href="#details-view-3" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+              <!-- Book 4 -->
+              <article class="book-card">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/mystery_cover.png" alt="The Adventures of Sherlock Holmes">
+                  <span class="book-badge">Web Novel</span>
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Mystery</span>
+                    <span class="book-rating">★ 4.8</span>
+                  </div>
+                  <h3 class="book-title">The Adventures of Sherlock Holmes</h3>
+                  <div class="book-author">By Arthur Conan Doyle</div>
+                  <p class="book-desc">A collection of detective stories featuring the brilliant consultant detective Sherlock Holmes.</p>
+                  <a href="#details-view-4" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
 
-        <!-- Web Novel Scroll Horizontal Carousel (Dynamically rendered by JS) -->
+        <!-- Web Novel Scroll Horizontal Carousel -->
         <div class="section-padding bg-sage">
           <div class="container">
             <div class="section-header">
               <h2>Trending Web Novels</h2>
               <p>Updated daily with serial stories and engaging chapters</p>
             </div>
-            <div class="carousel-container trending-carousel"></div>
+            <div class="carousel-container">
+              <!-- Novel Card 1 -->
+              <div class="novel-card">
+                <a href="#details-view-1">
+                  <div class="novel-cover-container">
+                    <img src="public/fantasy_cover.png" alt="The Chronicles of Eldoria">
+                  </div>
+                  <div class="novel-info">
+                    <div class="novel-title">The Chronicles of Eldoria</div>
+                    <div class="novel-author">By Lyra Vance</div>
+                    <div class="novel-chapters">12 Chapters</div>
+                  </div>
+                </a>
+              </div>
+              <!-- Novel Card 4 -->
+              <div class="novel-card">
+                <a href="#details-view-4">
+                  <div class="novel-cover-container">
+                    <img src="public/mystery_cover.png" alt="The Adventures of Sherlock Holmes">
+                  </div>
+                  <div class="novel-info">
+                    <div class="novel-title">The Adventures of Sherlock Holmes</div>
+                    <div class="novel-author">By Arthur Conan Doyle</div>
+                    <div class="novel-chapters">12 Chapters</div>
+                  </div>
+                </a>
+              </div>
+              <!-- Novel Card 6 -->
+              <div class="novel-card">
+                <a href="#details-view-6">
+                  <div class="novel-cover-container">
+                    <img src="public/thriller_cover.png" alt="The Silent Witness">
+                  </div>
+                  <div class="novel-info">
+                    <div class="novel-title">The Silent Witness</div>
+                    <div class="novel-author">By Clara Sterling</div>
+                    <div class="novel-chapters">18 Chapters</div>
+                  </div>
+                </a>
+              </div>
+              <!-- Novel Card 8 -->
+              <div class="novel-card">
+                <a href="#details-view-8">
+                  <div class="novel-cover-container">
+                    <img src="public/scifi_cover.png" alt="Beyond the Horizon">
+                  </div>
+                  <div class="novel-info">
+                    <div class="novel-title">Beyond the Horizon</div>
+                    <div class="novel-author">By H. G. Wells</div>
+                    <div class="novel-chapters">24 Chapters</div>
+                  </div>
+                </a>
+              </div>
+              <!-- Novel Card 9 -->
+              <div class="novel-card">
+                <a href="#details-view-9">
+                  <div class="novel-cover-container">
+                    <img src="public/romance_cover_2.png" alt="Whispers of the Heart">
+                  </div>
+                  <div class="novel-info">
+                    <div class="novel-title">Whispers of the Heart</div>
+                    <div class="novel-author">By Jane Austen</div>
+                    <div class="novel-chapters">30 Chapters</div>
+                  </div>
+                </a>
+              </div>
+              <!-- Novel Card 11 -->
+              <div class="novel-card">
+                <a href="#details-view-11">
+                  <div class="novel-cover-container">
+                    <img src="public/education_cover.png" alt="JavaScript for Beginners">
+                  </div>
+                  <div class="novel-info">
+                    <div class="novel-title">JavaScript for Beginners</div>
+                    <div class="novel-author">By Alex Carter</div>
+                    <div class="novel-chapters">10 Chapters</div>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -152,141 +324,1262 @@
             <div class="filter-group">
               <h3 class="filter-group-title">Format Type</h3>
               <div class="filter-options">
-                <button class="filter-btn type-filter-btn active" data-value="All">All Formats <span class="filter-count">0</span></button>
-                <button class="filter-btn type-filter-btn" data-value="Books">E-Books <span class="filter-count">0</span></button>
-                <button class="filter-btn type-filter-btn" data-value="Novels">Web Novels <span class="filter-count">0</span></button>
+                <label for="format-all" class="filter-btn">All Formats <span class="filter-count">12</span></label>
+                <label for="format-book" class="filter-btn">E-Books <span class="filter-count">6</span></label>
+                <label for="format-novel" class="filter-btn">Web Novels <span class="filter-count">6</span></label>
               </div>
             </div>
             <div class="filter-group">
               <h3 class="filter-group-title">Genres</h3>
               <div class="filter-options">
-                <button class="filter-btn category-filter-btn active" data-value="All">All Genres <span class="filter-count">0</span></button>
-                <button class="filter-btn category-filter-btn" data-value="Fantasy">Fantasy <span class="filter-count">0</span></button>
-                <button class="filter-btn category-filter-btn" data-value="Romance">Romance <span class="filter-count">0</span></button>
-                <button class="filter-btn category-filter-btn" data-value="Mystery">Mystery <span class="filter-count">0</span></button>
-                <button class="filter-btn category-filter-btn" data-value="Thriller">Thriller <span class="filter-count">0</span></button>
-                <button class="filter-btn category-filter-btn" data-value="Sci-Fi">Sci-Fi <span class="filter-count">0</span></button>
-                <button class="filter-btn category-filter-btn" data-value="Education">Education <span class="filter-count">0</span></button>
+                <label for="genre-all" class="filter-btn">All Genres <span class="filter-count">12</span></label>
+                <label for="genre-fantasy" class="filter-btn">Fantasy <span class="filter-count">2</span></label>
+                <label for="genre-romance" class="filter-btn">Romance <span class="filter-count">2</span></label>
+                <label for="genre-mystery" class="filter-btn">Mystery <span class="filter-count">2</span></label>
+                <label for="genre-thriller" class="filter-btn">Thriller <span class="filter-count">2</span></label>
+                <label for="genre-scifi" class="filter-btn">Sci-Fi <span class="filter-count">2</span></label>
+                <label for="genre-education" class="filter-btn">Education <span class="filter-count">2</span></label>
               </div>
             </div>
           </aside>
           <!-- Main results window pane -->
           <div class="catalog-main">
-            <h2 id="catalog-heading-text">All Books & Web Novels</h2>
-            <div class="books-grid catalog-books-grid"></div>
+            <!-- Dynamic CSS targeted titles -->
+            <h2 class="catalog-title-text" id="title-all">All Books & Web Novels</h2>
+            <h2 class="catalog-title-text" id="title-fantasy">Fantasy Catalogue</h2>
+            <h2 class="catalog-title-text" id="title-romance">Romance Catalogue</h2>
+            <h2 class="catalog-title-text" id="title-mystery">Mystery Catalogue</h2>
+            <h2 class="catalog-title-text" id="title-thriller">Thriller Catalogue</h2>
+            <h2 class="catalog-title-text" id="title-scifi">Sci-Fi Catalogue</h2>
+            <h2 class="catalog-title-text" id="title-education">Education Catalogue</h2>
+
+            <div class="books-grid catalog-books-grid">
+              <!-- Book 1 -->
+              <article class="book-card genre-fantasy format-novel">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/fantasy_cover.png" alt="The Chronicles of Eldoria">
+                  <span class="book-badge">Web Novel</span>
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Fantasy</span>
+                    <span class="book-rating">★ 4.8</span>
+                  </div>
+                  <h3 class="book-title">The Chronicles of Eldoria</h3>
+                  <div class="book-author">By Lyra Vance</div>
+                  <p class="book-desc">An apprentice scribe unlocks an ancient stone archway, unleashing a forgotten magic.</p>
+                  <a href="#details-view-1" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+              <!-- Book 2 -->
+              <article class="book-card genre-romance format-book">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/romance_cover.png" alt="Pride and Prejudice">
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Romance</span>
+                    <span class="book-rating">★ 4.7</span>
+                  </div>
+                  <h3 class="book-title">Pride and Prejudice</h3>
+                  <div class="book-author">By Jane Austen</div>
+                  <p class="book-desc">A classic comedy of manners charting the turbulent relationship between Elizabeth Bennet and Mr. Darcy.</p>
+                  <a href="#details-view-2" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+              <!-- Book 3 -->
+              <article class="book-card genre-scifi format-book">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/scifi_cover.png" alt="The Time Machine">
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Sci-Fi</span>
+                    <span class="book-rating">★ 4.5</span>
+                  </div>
+                  <h3 class="book-title">The Time Machine</h3>
+                  <div class="book-author">By H. G. Wells</div>
+                  <p class="book-desc">A Victorian scientist constructs a machine that projects him into the year 802,701.</p>
+                  <a href="#details-view-3" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+              <!-- Book 4 -->
+              <article class="book-card genre-mystery format-novel">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/mystery_cover.png" alt="The Adventures of Sherlock Holmes">
+                  <span class="book-badge">Web Novel</span>
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Mystery</span>
+                    <span class="book-rating">★ 4.8</span>
+                  </div>
+                  <h3 class="book-title">The Adventures of Sherlock Holmes</h3>
+                  <div class="book-author">By Arthur Conan Doyle</div>
+                  <p class="book-desc">A collection of detective stories featuring the brilliant consultant detective Sherlock Holmes.</p>
+                  <a href="#details-view-4" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+              <!-- Book 5 -->
+              <article class="book-card genre-education format-book">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/education_cover.png" alt="Mastering the Code">
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Education</span>
+                    <span class="book-rating">★ 4.6</span>
+                  </div>
+                  <h3 class="book-title">Mastering the Code</h3>
+                  <div class="book-author">By Alex Carter</div>
+                  <p class="book-desc">A beginner-friendly guide to computer science fundamentals and modern software design.</p>
+                  <a href="#details-view-5" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+              <!-- Book 6 -->
+              <article class="book-card genre-thriller format-novel">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/thriller_cover.png" alt="The Silent Witness">
+                  <span class="book-badge">Web Novel</span>
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Thriller</span>
+                    <span class="book-rating">★ 4.6</span>
+                  </div>
+                  <h3 class="book-title">The Silent Witness</h3>
+                  <div class="book-author">By Clara Sterling</div>
+                  <p class="book-desc">A cold rain, a shivering witness, and a cryptic leather journal containing dangerous secrets.</p>
+                  <a href="#details-view-6" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+              <!-- Book 7 -->
+              <article class="book-card genre-mystery format-book">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/mystery_cover.png" alt="The Midnight Clue">
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Mystery</span>
+                    <span class="book-rating">★ 4.6</span>
+                  </div>
+                  <h3 class="book-title">The Midnight Clue</h3>
+                  <div class="book-author">By Arthur Conan Doyle</div>
+                  <p class="book-desc">A high-stakes mystery surrounding a lost diamond and a ticking clock in Victorian London.</p>
+                  <a href="#details-view-7" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+              <!-- Book 8 -->
+              <article class="book-card genre-scifi format-novel">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/scifi_cover.png" alt="Beyond the Horizon">
+                  <span class="book-badge">Web Novel</span>
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Sci-Fi</span>
+                    <span class="book-rating">★ 4.7</span>
+                  </div>
+                  <h3 class="book-title">Beyond the Horizon</h3>
+                  <div class="book-author">By H. G. Wells</div>
+                  <p class="book-desc">A serialized space expedition exploring a wormhole at the edge of the solar system.</p>
+                  <a href="#details-view-8" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+              <!-- Book 9 -->
+              <article class="book-card genre-romance format-novel">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/romance_cover_2.png" alt="Whispers of the Heart">
+                  <span class="book-badge">Web Novel</span>
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Romance</span>
+                    <span class="book-rating">★ 4.8</span>
+                  </div>
+                  <h3 class="book-title">Whispers of the Heart</h3>
+                  <div class="book-author">By Jane Austen</div>
+                  <p class="book-desc">Two rival artists in Paris are forced to share a studio, discovering inspiration and love.</p>
+                  <a href="#details-view-9" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+              <!-- Book 10 -->
+              <article class="book-card genre-thriller format-book">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/thriller_cover.png" alt="The Silent Cry">
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Thriller</span>
+                    <span class="book-rating">★ 4.6</span>
+                  </div>
+                  <h3 class="book-title">The Silent Cry</h3>
+                  <div class="book-author">By Clara Sterling</div>
+                  <p class="book-desc">Detective Sarah Lund races against time to translate a hidden journal containing a conspiracy.</p>
+                  <a href="#details-view-10" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+              <!-- Book 11 -->
+              <article class="book-card genre-education format-novel">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/education_cover.png" alt="JavaScript for Beginners">
+                  <span class="book-badge">Web Novel</span>
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Education</span>
+                    <span class="book-rating">★ 4.5</span>
+                  </div>
+                  <h3 class="book-title">JavaScript for Beginners</h3>
+                  <div class="book-author">By Alex Carter</div>
+                  <p class="book-desc">An interactive coding journey explaining modern JS concepts using game development.</p>
+                  <a href="#details-view-11" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+              <!-- Book 12 -->
+              <article class="book-card genre-fantasy format-book">
+                <div class="book-cover-container">
+                  <img class="book-cover" src="public/fantasy_cover_2.png" alt="The Lost Kingdom">
+                </div>
+                <div class="book-info">
+                  <div class="book-meta">
+                    <span class="tag" style="padding: 0.15rem 0.5rem; font-size: 0.75rem;">Fantasy</span>
+                    <span class="book-rating">★ 4.9</span>
+                  </div>
+                  <h3 class="book-title">The Lost Kingdom</h3>
+                  <div class="book-author">By Lyra Vance</div>
+                  <p class="book-desc">An epic quest to retrieve a magical scepter and restore peace to the realm of Aethelgard.</p>
+                  <a href="#details-view-12" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- 3. BOOK DETAILS PAGE -->
-      <section id="details-view" class="view-section section-padding">
+      <!-- ==================== BOOK DETAILS PAGES (STATIC MULTIPLE VIEWS) ==================== -->
+      <!-- Details 1 -->
+      <section id="details-view-1" class="view-section section-padding">
         <div class="container">
-          <!-- Main descriptive grid info -->
           <div class="detail-grid">
-            <div class="detail-cover-wrapper">
-              <img id="detail-cover" src="/fantasy_cover.png" alt="Cover" />
-            </div>
+            <div class="detail-cover-wrapper"><img src="public/fantasy_cover.png" alt="The Chronicles of Eldoria" /></div>
             <div class="detail-info">
-              <h1 class="font-serif" id="detail-title">Book Title</h1>
-              <div class="detail-author" id="detail-author">Author Name</div>
+              <h1 class="font-serif">The Chronicles of Eldoria</h1>
+              <div class="detail-author">Written by Lyra Vance</div>
               <div class="detail-rating-row">
                 <div class="detail-stars">★★★★★</div>
-                <div class="detail-rating-val" id="detail-rating-val">4.8</div>
-                <div id="detail-chapters-count" style="color: var(--text-secondary); font-weight: 500;">12 Chapters</div>
-                <span class="tag" id="detail-format-tag" style="background-color: #EEF2F6; color: var(--primary); font-weight: bold;">Web Novel</span>
+                <div class="detail-rating-val">4.8</div>
+                <div style="color: var(--text-secondary); font-weight: 500;">12 Chapters</div>
+                <span class="tag" style="background-color: #EEF2F6; color: var(--primary); font-weight: bold;">Web Novel</span>
               </div>
-              <div class="detail-tags" id="detail-genre-tags"></div>
-              
-              <!-- Pull-quote synopsis panel layout -->
+              <div class="detail-tags">
+                <span class="tag">Epic Fantasy</span><span class="tag">Magic</span><span class="tag">Adventure</span>
+              </div>
               <div class="detail-synopsis">
                 <h3>Synopsis</h3>
-                <p id="detail-synopsis-text">Synopsis description.</p>
+                <p>For a thousand years, the stone archway in the heart of the Eldorian Woods remained silent. It was a relic of an age long forgotten, covered in thick ivy and ancient runes. When Lyra discovers a strange copper key, she opens a gateway to a realm of silver trees and rising shadows.</p>
               </div>
-              <button class="btn btn-primary" id="btn-read-now" style="font-size: 1.1rem; padding: 0.85rem 2.25rem;">Start Reading</button>
+              <a href="#reader-view-1" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.85rem 2.25rem;">Start Reading</a>
             </div>
           </div>
-          
-          <!-- Similar recommendations list widget (Rendered by JS) -->
           <div class="reviews-section">
-            <h3 class="font-serif" style="font-size: 1.5rem; margin-bottom: 1.5rem;">Similar Stories You Might Like</h3>
-            <div class="books-grid" id="similar-books-grid"></div>
-          </div>
-          
-          <!-- Reviews list and submission form -->
-          <div class="reviews-section" id="reviews-panel">
-            <h3 class="font-serif">Reader Reviews</h3>
-            <form class="review-form" id="comment-form">
-              <h4>Leave a Review</h4>
-              <!-- Rating Selector -->
-              <div class="form-group">
-                <label>Your Rating</label>
-                <div class="review-rating-select" id="review-stars-selection">
-                  <span class="rating-star-btn active">★</span>
-                  <span class="rating-star-btn active">★</span>
-                  <span class="rating-star-btn active">★</span>
-                  <span class="rating-star-btn active">★</span>
-                  <span class="rating-star-btn active">★</span>
+            <h3 class="font-serif">Similar Stories You Might Like</h3>
+            <div class="books-grid">
+              <!-- Book 12 -->
+              <article class="book-card">
+                <div class="book-cover-container"><img class="book-cover" src="public/fantasy_cover_2.png" alt="The Lost Kingdom"></div>
+                <div class="book-info">
+                  <div class="book-meta"><span class="tag">Fantasy</span><span class="book-rating">★ 4.9</span></div>
+                  <h3 class="book-title">The Lost Kingdom</h3>
+                  <div class="book-author">By Lyra Vance</div>
+                  <a href="#details-view-12" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
                 </div>
+              </article>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Reader Reviews</h3>
+            <div class="reviews-list">
+              <div class="review-item">
+                <div class="review-header"><span class="review-user-name">Arthur P.</span><span class="review-stars">★★★★★</span></div>
+                <div class="review-body">Absolutely gripping! The descriptions are magical.</div>
               </div>
-              <!-- Username input -->
-              <div class="form-group">
-                <label for="review-username">Name</label>
-                <input type="text" id="review-username" class="form-control" placeholder="e.g. Jane Doe" required />
+              <div class="review-item">
+                <div class="review-header"><span class="review-user-name">MageRead</span><span class="review-stars">★★★★☆</span></div>
+                <div class="review-body">A solid beginning to a classic fantasy quest.</div>
               </div>
-              <!-- Text Area message content -->
-              <div class="form-group">
-                <label for="review-text">Review Comment</label>
-                <textarea id="review-text" class="form-control" rows="4" placeholder="Share your reading experience..." required></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary" style="padding: 0.6rem 1.5rem;">Submit Review</button>
-            </form>
-            
-            <!-- Comment thread list element container (Rendered by JS) -->
-            <div class="reviews-list" id="reviews-list-container"></div>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- 4. PREMIUM E-READER VIEW -->
-      <section id="reader-view" class="view-section">
-        <!-- Reader top controls bar layout -->
-        <div class="reading-header-wrap">
-          <!-- Top loading progress bar visual indicator -->
-          <div class="reading-progress-container">
-            <div class="reading-progress-bar" id="reader-progress"></div>
-          </div>
-          <div class="container reading-controls-bar">
-            <!-- Return button -->
-            <button class="reading-control-btn" id="reader-btn-close"><span>← Details</span></button>
-            <div class="reading-controls-group">
-              <!-- Font size controllers -->
-              <div class="reading-controls-group" style="border-right: 1px solid var(--border); padding-right: 1rem; margin-right: 1rem;">
-                <button class="reading-control-btn" id="reader-btn-font-dec" style="padding: 0.25rem 0.5rem; font-weight: bold;">A-</button>
-                <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Font Size</span>
-                <button class="reading-control-btn" id="reader-btn-font-inc" style="padding: 0.25rem 0.5rem; font-weight: bold;">A+</button>
+      <!-- Details 2 -->
+      <section id="details-view-2" class="view-section section-padding">
+        <div class="container">
+          <div class="detail-grid">
+            <div class="detail-cover-wrapper"><img src="public/romance_cover.png" alt="Pride and Prejudice" /></div>
+            <div class="detail-info">
+              <h1 class="font-serif">Pride and Prejudice</h1>
+              <div class="detail-author">Written by Jane Austen</div>
+              <div class="detail-rating-row">
+                <div class="detail-stars">★★★★★</div>
+                <div class="detail-rating-val">4.7</div>
+                <div style="color: var(--text-secondary); font-weight: 500;">61 Chapters</div>
+                <span class="tag" style="background-color: #EEF2F6; color: var(--primary); font-weight: bold;">E-Book</span>
               </div>
-              <!-- Workspace color theme toggles -->
-              <div class="theme-selector">
-                <button class="theme-option active" data-theme="light">Light</button>
-                <button class="theme-option" data-theme="sepia" style="background-color: #FDF6E3; color: #586E75;">Sepia</button>
-                <button class="theme-option" data-theme="dark" style="background-color: #1E293B; color: #E2E8F0;">Dark</button>
+              <div class="detail-tags">
+                <span class="tag">Classics</span><span class="tag">Romance</span><span class="tag">British</span>
+              </div>
+              <div class="detail-synopsis">
+                <h3>Synopsis</h3>
+                <p>Jane Austen's masterpiece set in 19th-century England explores the clash between Elizabeth Bennet, a woman of sharp wit, and Mr. Darcy, a rich, proud aristocrat. The story illustrates how initial misconceptions and expectations hinder true affection.</p>
+              </div>
+              <a href="#reader-view-2" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.85rem 2.25rem;">Start Reading</a>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Similar Stories You Might Like</h3>
+            <div class="books-grid">
+              <!-- Book 9 -->
+              <article class="book-card">
+                <div class="book-cover-container"><img class="book-cover" src="public/romance_cover_2.png" alt="Whispers of the Heart"></div>
+                <div class="book-info">
+                  <div class="book-meta"><span class="tag">Romance</span><span class="book-rating">★ 4.8</span></div>
+                  <h3 class="book-title">Whispers of the Heart</h3>
+                  <div class="book-author">By Jane Austen</div>
+                  <a href="#details-view-9" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Reader Reviews</h3>
+            <div class="reviews-list">
+              <div class="review-item">
+                <div class="review-header"><span class="review-user-name">LizzyFan</span><span class="review-stars">★★★★★</span></div>
+                <div class="review-body">A timeless romance. The dialogue is incredibly sharp.</div>
               </div>
             </div>
           </div>
         </div>
-        <!-- Reader main content screen (Injects placeholder text) -->
+      </section>
+
+      <!-- Details 3 -->
+      <section id="details-view-3" class="view-section section-padding">
+        <div class="container">
+          <div class="detail-grid">
+            <div class="detail-cover-wrapper"><img src="public/scifi_cover.png" alt="The Time Machine" /></div>
+            <div class="detail-info">
+              <h1 class="font-serif">The Time Machine</h1>
+              <div class="detail-author">Written by H. G. Wells</div>
+              <div class="detail-rating-row">
+                <div class="detail-stars">★★★★★</div>
+                <div class="detail-rating-val">4.5</div>
+                <div style="color: var(--text-secondary); font-weight: 500;">16 Chapters</div>
+                <span class="tag" style="background-color: #EEF2F6; color: var(--primary); font-weight: bold;">E-Book</span>
+              </div>
+              <div class="detail-tags">
+                <span class="tag">Sci-Fi</span><span class="tag">Time Travel</span><span class="tag">Classics</span>
+              </div>
+              <div class="detail-synopsis">
+                <h3>Synopsis</h3>
+                <p>The Time Traveller journeys to the far future, where he discovers humanity has split into two species: the surface-dwelling Eloi and the underground Morlocks. A dark warning about social inequality and the future of evolution.</p>
+              </div>
+              <a href="#reader-view-3" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.85rem 2.25rem;">Start Reading</a>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Similar Stories You Might Like</h3>
+            <div class="books-grid">
+              <!-- Book 8 -->
+              <article class="book-card">
+                <div class="book-cover-container"><img class="book-cover" src="public/scifi_cover.png" alt="Beyond the Horizon"></div>
+                <div class="book-info">
+                  <div class="book-meta"><span class="tag">Sci-Fi</span><span class="book-rating">★ 4.7</span></div>
+                  <h3 class="book-title">Beyond the Horizon</h3>
+                  <div class="book-author">By H. G. Wells</div>
+                  <a href="#details-view-8" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Reader Reviews</h3>
+            <div class="reviews-list">
+              <div class="review-item">
+                <div class="review-header"><span class="review-user-name">CyberReader</span><span class="review-stars">★★★★☆</span></div>
+                <div class="review-body">Mind-bending for its time, still holds up well.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Details 4 -->
+      <section id="details-view-4" class="view-section section-padding">
+        <div class="container">
+          <div class="detail-grid">
+            <div class="detail-cover-wrapper"><img src="public/mystery_cover.png" alt="The Adventures of Sherlock Holmes" /></div>
+            <div class="detail-info">
+              <h1 class="font-serif">The Adventures of Sherlock Holmes</h1>
+              <div class="detail-author">Written by Arthur Conan Doyle</div>
+              <div class="detail-rating-row">
+                <div class="detail-stars">★★★★★</div>
+                <div class="detail-rating-val">4.8</div>
+                <div style="color: var(--text-secondary); font-weight: 500;">12 Chapters</div>
+                <span class="tag" style="background-color: #EEF2F6; color: var(--primary); font-weight: bold;">Web Novel</span>
+              </div>
+              <div class="detail-tags">
+                <span class="tag">Detective</span><span class="tag">Mystery</span><span class="tag">Crime</span>
+              </div>
+              <div class="detail-synopsis">
+                <h3>Synopsis</h3>
+                <p>Dr. John Watson documents the extraordinary cases resolved by his friend, the master of observation and deductive reasoning, Sherlock Holmes. From blackmail in high society to bizarre clubs, Holmes unravels the most complex mysteries.</p>
+              </div>
+              <a href="#reader-view-4" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.85rem 2.25rem;">Start Reading</a>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Similar Stories You Might Like</h3>
+            <div class="books-grid">
+              <!-- Book 7 -->
+              <article class="book-card">
+                <div class="book-cover-container"><img class="book-cover" src="public/mystery_cover.png" alt="The Midnight Clue"></div>
+                <div class="book-info">
+                  <div class="book-meta"><span class="tag">Mystery</span><span class="book-rating">★ 4.6</span></div>
+                  <h3 class="book-title">The Midnight Clue</h3>
+                  <div class="book-author">By Arthur Conan Doyle</div>
+                  <a href="#details-view-7" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Reader Reviews</h3>
+            <div class="reviews-list">
+              <div class="review-item">
+                <div class="review-header"><span class="review-user-name">WatsonApprentice</span><span class="review-stars">★★★★★</span></div>
+                <div class="review-body">Holmes' reasoning is magical to watch.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Details 5 -->
+      <section id="details-view-5" class="view-section section-padding">
+        <div class="container">
+          <div class="detail-grid">
+            <div class="detail-cover-wrapper"><img src="public/education_cover.png" alt="Mastering the Code" /></div>
+            <div class="detail-info">
+              <h1 class="font-serif">Mastering the Code</h1>
+              <div class="detail-author">Written by Alex Carter</div>
+              <div class="detail-rating-row">
+                <div class="detail-stars">★★★★★</div>
+                <div class="detail-rating-val">4.6</div>
+                <div style="color: var(--text-secondary); font-weight: 500;">15 Chapters</div>
+                <span class="tag" style="background-color: #EEF2F6; color: var(--primary); font-weight: bold;">E-Book</span>
+              </div>
+              <div class="detail-tags">
+                <span class="tag">Programming</span><span class="tag">Tutorial</span><span class="tag">Education</span>
+              </div>
+              <div class="detail-synopsis">
+                <h3>Synopsis</h3>
+                <p>Learn programming fundamentals, systems architecture, and engineering best practices from scratch. This book provides a step-by-step introduction to computing concepts, variables, control flow, and modular software design.</p>
+              </div>
+              <a href="#reader-view-5" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.85rem 2.25rem;">Start Reading</a>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Similar Stories You Might Like</h3>
+            <div class="books-grid">
+              <!-- Book 11 -->
+              <article class="book-card">
+                <div class="book-cover-container"><img class="book-cover" src="public/education_cover.png" alt="JavaScript for Beginners"></div>
+                <div class="book-info">
+                  <div class="book-meta"><span class="tag">Education</span><span class="book-rating">★ 4.5</span></div>
+                  <h3 class="book-title">JavaScript for Beginners</h3>
+                  <div class="book-author">By Alex Carter</div>
+                  <a href="#details-view-11" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Reader Reviews</h3>
+            <div class="reviews-list">
+              <div class="review-item">
+                <div class="review-header"><span class="review-user-name">DevNovice</span><span class="review-stars">★★★★★</span></div>
+                <div class="review-body">Explanations are so clear. The best beginner coding book.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Details 6 -->
+      <section id="details-view-6" class="view-section section-padding">
+        <div class="container">
+          <div class="detail-grid">
+            <div class="detail-cover-wrapper"><img src="public/thriller_cover.png" alt="The Silent Witness" /></div>
+            <div class="detail-info">
+              <h1 class="font-serif">The Silent Witness</h1>
+              <div class="detail-author">Written by Clara Sterling</div>
+              <div class="detail-rating-row">
+                <div class="detail-stars">★★★★★</div>
+                <div class="detail-rating-val">4.6</div>
+                <div style="color: var(--text-secondary); font-weight: 500;">18 Chapters</div>
+                <span class="tag" style="background-color: #EEF2F6; color: var(--primary); font-weight: bold;">Web Novel</span>
+              </div>
+              <div class="detail-tags">
+                <span class="tag">Thriller</span><span class="tag">Crime</span><span class="tag">Suspense</span>
+              </div>
+              <div class="detail-synopsis">
+                <h3>Synopsis</h3>
+                <p>When Detective Sarah Lund is called to interrogate a silent young boy clutching a leather journal, she uncovers a conspiracy that stretches to the highest levels of city governance. She must decipher the journal before the witness is silenced.</p>
+              </div>
+              <a href="#reader-view-6" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.85rem 2.25rem;">Start Reading</a>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Similar Stories You Might Like</h3>
+            <div class="books-grid">
+              <!-- Book 10 -->
+              <article class="book-card">
+                <div class="book-cover-container"><img class="book-cover" src="public/thriller_cover.png" alt="The Silent Cry"></div>
+                <div class="book-info">
+                  <div class="book-meta"><span class="tag">Thriller</span><span class="book-rating">★ 4.6</span></div>
+                  <h3 class="book-title">The Silent Cry</h3>
+                  <div class="book-author">By Clara Sterling</div>
+                  <a href="#details-view-10" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Reader Reviews</h3>
+            <div class="reviews-list">
+              <div class="review-item">
+                <div class="review-header"><span class="review-user-name">PlotTwistFan</span><span class="review-stars">★★★★☆</span></div>
+                <div class="review-body">Incredibly atmospheric opening. Lund is a great character.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Details 7 -->
+      <section id="details-view-7" class="view-section section-padding">
+        <div class="container">
+          <div class="detail-grid">
+            <div class="detail-cover-wrapper"><img src="public/mystery_cover.png" alt="The Midnight Clue" /></div>
+            <div class="detail-info">
+              <h1 class="font-serif">The Midnight Clue</h1>
+              <div class="detail-author">Written by Arthur Conan Doyle</div>
+              <div class="detail-rating-row">
+                <div class="detail-stars">★★★★★</div>
+                <div class="detail-rating-val">4.6</div>
+                <div style="color: var(--text-secondary); font-weight: 500;">8 Chapters</div>
+                <span class="tag" style="background-color: #EEF2F6; color: var(--primary); font-weight: bold;">E-Book</span>
+              </div>
+              <div class="detail-tags">
+                <span class="tag">Mystery</span><span class="tag">Victorian</span><span class="tag">Detective</span>
+              </div>
+              <div class="detail-synopsis">
+                <h3>Synopsis</h3>
+                <p>Sherlock Holmes is hired by a foreign prince to retrieve a stolen royal diamond. With only twenty-four hours before the thief flees England, Holmes and Watson follow a trail of clues from high-end parlors to the London docks.</p>
+              </div>
+              <a href="#reader-view-7" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.85rem 2.25rem;">Start Reading</a>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Similar Stories You Might Like</h3>
+            <div class="books-grid">
+              <!-- Book 4 -->
+              <article class="book-card">
+                <div class="book-cover-container"><img class="book-cover" src="public/mystery_cover.png" alt="The Adventures of Sherlock Holmes"></div>
+                <div class="book-info">
+                  <div class="book-meta"><span class="tag">Mystery</span><span class="book-rating">★ 4.8</span></div>
+                  <h3 class="book-title">The Adventures of Sherlock Holmes</h3>
+                  <div class="book-author">By Arthur Conan Doyle</div>
+                  <a href="#details-view-4" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Reader Reviews</h3>
+            <div class="reviews-list">
+              <div class="review-item">
+                <div class="review-header"><span class="review-user-name">HolmesClub</span><span class="review-stars">★★★★★</span></div>
+                <div class="review-body">A short and highly entertaining Sherlock Holmes mystery.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Details 8 -->
+      <section id="details-view-8" class="view-section section-padding">
+        <div class="container">
+          <div class="detail-grid">
+            <div class="detail-cover-wrapper"><img src="public/scifi_cover.png" alt="Beyond the Horizon" /></div>
+            <div class="detail-info">
+              <h1 class="font-serif">Beyond the Horizon</h1>
+              <div class="detail-author">Written by H. G. Wells</div>
+              <div class="detail-rating-row">
+                <div class="detail-stars">★★★★★</div>
+                <div class="detail-rating-val">4.7</div>
+                <div style="color: var(--text-secondary); font-weight: 500;">24 Chapters</div>
+                <span class="tag" style="background-color: #EEF2F6; color: var(--primary); font-weight: bold;">Web Novel</span>
+              </div>
+              <div class="detail-tags">
+                <span class="tag">Sci-Fi</span><span class="tag">Space</span><span class="tag">Adventure</span>
+              </div>
+              <div class="detail-synopsis">
+                <h3>Synopsis</h3>
+                <p>In the year 2140, a group of scientists aboard the spacecraft Pioneer embark on a one-way trip through a newly discovered wormhole. What they find on the other side challenges the very laws of physics and time.</p>
+              </div>
+              <a href="#reader-view-8" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.85rem 2.25rem;">Start Reading</a>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Similar Stories You Might Like</h3>
+            <div class="books-grid">
+              <!-- Book 3 -->
+              <article class="book-card">
+                <div class="book-cover-container"><img class="book-cover" src="public/scifi_cover.png" alt="The Time Machine"></div>
+                <div class="book-info">
+                  <div class="book-meta"><span class="tag">Sci-Fi</span><span class="book-rating">★ 4.5</span></div>
+                  <h3 class="book-title">The Time Machine</h3>
+                  <div class="book-author">By H. G. Wells</div>
+                  <a href="#details-view-3" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Reader Reviews</h3>
+            <div class="reviews-list">
+              <div class="review-item">
+                <div class="review-header"><span class="review-user-name">StarGazer</span><span class="review-stars">★★★★☆</span></div>
+                <div class="review-body">Breathtaking scope. The hard science element is fantastic.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Details 9 -->
+      <section id="details-view-9" class="view-section section-padding">
+        <div class="container">
+          <div class="detail-grid">
+            <div class="detail-cover-wrapper"><img src="public/romance_cover_2.png" alt="Whispers of the Heart" /></div>
+            <div class="detail-info">
+              <h1 class="font-serif">Whispers of the Heart</h1>
+              <div class="detail-author">Written by Jane Austen</div>
+              <div class="detail-rating-row">
+                <div class="detail-stars">★★★★★</div>
+                <div class="detail-rating-val">4.8</div>
+                <div style="color: var(--text-secondary); font-weight: 500;">30 Chapters</div>
+                <span class="tag" style="background-color: #EEF2F6; color: var(--primary); font-weight: bold;">Web Novel</span>
+              </div>
+              <div class="detail-tags">
+                <span class="tag">Romance</span><span class="tag">Paris</span><span class="tag">Artistic</span>
+              </div>
+              <div class="detail-synopsis">
+                <h3>Synopsis</h3>
+                <p>Set in the romantic streets of Paris, this modern romance tells the story of Sophia, a classical painter, and Julian, an abstract artist. Forced to share a studio due to a rental mix-up, they clash and eventually inspire each other.</p>
+              </div>
+              <a href="#reader-view-9" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.85rem 2.25rem;">Start Reading</a>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Similar Stories You Might Like</h3>
+            <div class="books-grid">
+              <!-- Book 2 -->
+              <article class="book-card">
+                <div class="book-cover-container"><img class="book-cover" src="public/romance_cover.png" alt="Pride and Prejudice"></div>
+                <div class="book-info">
+                  <div class="book-meta"><span class="tag">Romance</span><span class="book-rating">★ 4.7</span></div>
+                  <h3 class="book-title">Pride and Prejudice</h3>
+                  <div class="book-author">By Jane Austen</div>
+                  <a href="#details-view-2" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Reader Reviews</h3>
+            <div class="reviews-list">
+              <div class="review-item">
+                <div class="review-header"><span class="review-user-name">ParisianDreamer</span><span class="review-stars">★★★★★</span></div>
+                <div class="review-body">Such a sweet, lovely story about art and connection.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Details 10 -->
+      <section id="details-view-10" class="view-section section-padding">
+        <div class="container">
+          <div class="detail-grid">
+            <div class="detail-cover-wrapper"><img src="public/thriller_cover.png" alt="The Silent Cry" /></div>
+            <div class="detail-info">
+              <h1 class="font-serif">The Silent Cry</h1>
+              <div class="detail-author">Written by Clara Sterling</div>
+              <div class="detail-rating-row">
+                <div class="detail-stars">★★★★★</div>
+                <div class="detail-rating-val">4.6</div>
+                <div style="color: var(--text-secondary); font-weight: 500;">20 Chapters</div>
+                <span class="tag" style="background-color: #EEF2F6; color: var(--primary); font-weight: bold;">E-Book</span>
+              </div>
+              <div class="detail-tags">
+                <span class="tag">Thriller</span><span class="tag">Crime</span><span class="tag">Suspense</span>
+              </div>
+              <div class="detail-synopsis">
+                <h3>Synopsis</h3>
+                <p>Following the events of The Silent Witness, Detective Sarah Lund uncovers a deeper layer of the city conspiracy. With the journal translated, she becomes the target of powerful figures who will stop at nothing to bury the truth.</p>
+              </div>
+              <a href="#reader-view-10" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.85rem 2.25rem;">Start Reading</a>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Similar Stories You Might Like</h3>
+            <div class="books-grid">
+              <!-- Book 6 -->
+              <article class="book-card">
+                <div class="book-cover-container"><img class="book-cover" src="public/thriller_cover.png" alt="The Silent Witness"></div>
+                <div class="book-info">
+                  <div class="book-meta"><span class="tag">Thriller</span><span class="book-rating">★ 4.6</span></div>
+                  <h3 class="book-title">The Silent Witness</h3>
+                  <div class="book-author">By Clara Sterling</div>
+                  <a href="#details-view-6" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Reader Reviews</h3>
+            <div class="reviews-list">
+              <div class="review-item">
+                <div class="review-header"><span class="review-user-name">ThrillerFanatic</span><span class="review-stars">★★★★☆</span></div>
+                <div class="review-body">A relentless sequel that keeps the tension high throughout.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Details 11 -->
+      <section id="details-view-11" class="view-section section-padding">
+        <div class="container">
+          <div class="detail-grid">
+            <div class="detail-cover-wrapper"><img src="public/education_cover.png" alt="JavaScript for Beginners" /></div>
+            <div class="detail-info">
+              <h1 class="font-serif">JavaScript for Beginners</h1>
+              <div class="detail-author">Written by Alex Carter</div>
+              <div class="detail-rating-row">
+                <div class="detail-stars">★★★★★</div>
+                <div class="detail-rating-val">4.5</div>
+                <div style="color: var(--text-secondary); font-weight: 500;">10 Chapters</div>
+                <span class="tag" style="background-color: #EEF2F6; color: var(--primary); font-weight: bold;">Web Novel</span>
+              </div>
+              <div class="detail-tags">
+                <span class="tag">Programming</span><span class="tag">JavaScript</span><span class="tag">Beginners</span>
+              </div>
+              <div class="detail-synopsis">
+                <h3>Synopsis</h3>
+                <p>Learn programming by doing! This guide takes you from writing your first console log to building a working HTML5 game, explaining functions, objects, loops, and event handling along the way in a simple manner.</p>
+              </div>
+              <a href="#reader-view-11" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.85rem 2.25rem;">Start Reading</a>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Similar Stories You Might Like</h3>
+            <div class="books-grid">
+              <!-- Book 5 -->
+              <article class="book-card">
+                <div class="book-cover-container"><img class="book-cover" src="public/education_cover.png" alt="Mastering the Code"></div>
+                <div class="book-info">
+                  <div class="book-meta"><span class="tag">Education</span><span class="book-rating">★ 4.6</span></div>
+                  <h3 class="book-title">Mastering the Code</h3>
+                  <div class="book-author">By Alex Carter</div>
+                  <a href="#details-view-5" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Reader Reviews</h3>
+            <div class="reviews-list">
+              <div class="review-item">
+                <div class="review-header"><span class="review-user-name">CodeNewbie</span><span class="review-stars">★★★★★</span></div>
+                <div class="review-body">The game-building projects made the logic click for me!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Details 12 -->
+      <section id="details-view-12" class="view-section section-padding">
+        <div class="container">
+          <div class="detail-grid">
+            <div class="detail-cover-wrapper"><img src="public/fantasy_cover_2.png" alt="The Lost Kingdom" /></div>
+            <div class="detail-info">
+              <h1 class="font-serif">The Lost Kingdom</h1>
+              <div class="detail-author">Written by Lyra Vance</div>
+              <div class="detail-rating-row">
+                <div class="detail-stars">★★★★★</div>
+                <div class="detail-rating-val">4.9</div>
+                <div style="color: var(--text-secondary); font-weight: 500;">40 Chapters</div>
+                <span class="tag" style="background-color: #EEF2F6; color: var(--primary); font-weight: bold;">E-Book</span>
+              </div>
+              <div class="detail-tags">
+                <span class="tag">Fantasy</span><span class="tag">Quest</span><span class="tag">Action</span>
+              </div>
+              <div class="detail-synopsis">
+                <h3>Synopsis</h3>
+                <p>When the Dark Lord steals the Silver Scepter, the magical barrier keeping the monsters at bay collapses. A young ranger must assemble a team of guardians to venture into the ruined capital and retrieve it.</p>
+              </div>
+              <a href="#reader-view-12" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.85rem 2.25rem;">Start Reading</a>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Similar Stories You Might Like</h3>
+            <div class="books-grid">
+              <!-- Book 1 -->
+              <article class="book-card">
+                <div class="book-cover-container"><img class="book-cover" src="public/fantasy_cover.png" alt="The Chronicles of Eldoria"></div>
+                <div class="book-info">
+                  <div class="book-meta"><span class="tag">Fantasy</span><span class="book-rating">★ 4.8</span></div>
+                  <h3 class="book-title">The Chronicles of Eldoria</h3>
+                  <div class="book-author">By Lyra Vance</div>
+                  <a href="#details-view-1" class="btn btn-secondary" style="width: 100%; margin-top: auto; padding: 0.5rem 1rem; text-align: center;">Read Details</a>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="reviews-section">
+            <h3 class="font-serif">Reader Reviews</h3>
+            <div class="reviews-list">
+              <div class="review-item">
+                <div class="review-header"><span class="review-user-name">HighFantasyLover</span><span class="review-stars">★★★★★</span></div>
+                <div class="review-body">An absolute masterpiece of worldbuilding and adventure.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== PREMIUM E-READERS (STATIC VIEWS) ==================== -->
+      <!-- Reader 1 -->
+      <section id="reader-view-1" class="view-section">
+        <div class="reading-header-wrap">
+          <div class="reading-progress-container"><div class="reading-progress-bar"></div></div>
+          <div class="container reading-controls-bar">
+            <a href="#details-view-1" class="reading-control-btn"><span>← Details</span></a>
+            <div class="reading-controls-group">
+              <div class="reading-controls-group" style="border-right: 1px solid var(--border); padding-right: 1rem; margin-right: 1rem; gap: 0.5rem;">
+                <label for="reader-font-sm" class="reading-control-btn font-btn-sm" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">A-</label>
+                <label for="reader-font-md" class="reading-control-btn font-btn-md" style="font-size: 1rem; padding: 0.25rem 0.5rem; font-weight: 600;">A</label>
+                <label for="reader-font-lg" class="reading-control-btn font-btn-lg" style="font-size: 1.2rem; padding: 0.25rem 0.5rem;">A+</label>
+              </div>
+              <div class="theme-selector">
+                <label for="reader-theme-light" class="theme-option theme-option-light">Light</label>
+                <label for="reader-theme-sepia" class="theme-option theme-option-sepia">Sepia</label>
+                <label for="reader-theme-dark" class="theme-option theme-option-dark">Dark</label>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="reading-layout">
           <div class="reading-content-container">
             <div class="reading-title-area">
-              <div class="reading-book-title" id="reader-book-title-text">Book Title</div>
-              <h1 class="reading-chapter-title font-serif" id="reader-chapter-title-text">Chapter Title</h1>
+              <div class="reading-book-title">The Chronicles of Eldoria</div>
+              <h1 class="reading-chapter-title font-serif">Chapter 1: The Copper Key</h1>
             </div>
-            <div id="reader-content-area"></div>
-            <!-- Pagination buttons hidden due to mock setup -->
-            <nav class="reading-navigation" style="display: none;">
-              <button id="reader-btn-prev"></button>
-              <button id="reader-btn-next"></button>
-            </nav>
+            <div class="reading-text">
+              <p style="margin-bottom: 1.5rem;">The afternoon sun filtered through the dense green canopy of the Eldorian Woods, casting long, shifting shadows across the forest floor. Lyra walked with quiet steps, her boots pressing silently into the damp moss. As an apprentice scribe at the High Archives, she spent most of her days surrounded by dust and crumbling parchment. But today, she was seeking something that could not be found in books.</p>
+              <p style="margin-bottom: 1.5rem;">The copper key turned with a soft click, and the heavy stone door began to slide open. Cold air brushed past her cheeks, smelling of stone, ozone, and ancient magic. For a thousand years, this archway had remained sealed. Now, she was about to step into the silver trees of a forgotten world.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reader 2 -->
+      <section id="reader-view-2" class="view-section">
+        <div class="reading-header-wrap">
+          <div class="reading-progress-container"><div class="reading-progress-bar"></div></div>
+          <div class="container reading-controls-bar">
+            <a href="#details-view-2" class="reading-control-btn"><span>← Details</span></a>
+            <div class="reading-controls-group">
+              <div class="reading-controls-group" style="border-right: 1px solid var(--border); padding-right: 1rem; margin-right: 1rem; gap: 0.5rem;">
+                <label for="reader-font-sm" class="reading-control-btn font-btn-sm" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">A-</label>
+                <label for="reader-font-md" class="reading-control-btn font-btn-md" style="font-size: 1rem; padding: 0.25rem 0.5rem; font-weight: 600;">A</label>
+                <label for="reader-font-lg" class="reading-control-btn font-btn-lg" style="font-size: 1.2rem; padding: 0.25rem 0.5rem;">A+</label>
+              </div>
+              <div class="theme-selector">
+                <label for="reader-theme-light" class="theme-option theme-option-light">Light</label>
+                <label for="reader-theme-sepia" class="theme-option theme-option-sepia">Sepia</label>
+                <label for="reader-theme-dark" class="theme-option theme-option-dark">Dark</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reading-layout">
+          <div class="reading-content-container">
+            <div class="reading-title-area">
+              <div class="reading-book-title">Pride and Prejudice</div>
+              <h1 class="reading-chapter-title font-serif">Chapter 1: The Arrival of Netherfield</h1>
+            </div>
+            <div class="reading-text">
+              <p style="margin-bottom: 1.5rem;">It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.</p>
+              <p style="margin-bottom: 1.5rem;">However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters.</p>
+              <p style="margin-bottom: 1.5rem;">"My dear Mr. Bennet," said his lady to him one day, "have you heard that Netherfield Park is let at last?" Mr. Bennet replied that he had not...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reader 3 -->
+      <section id="reader-view-3" class="view-section">
+        <div class="reading-header-wrap">
+          <div class="reading-progress-container"><div class="reading-progress-bar"></div></div>
+          <div class="container reading-controls-bar">
+            <a href="#details-view-3" class="reading-control-btn"><span>← Details</span></a>
+            <div class="reading-controls-group">
+              <div class="reading-controls-group" style="border-right: 1px solid var(--border); padding-right: 1rem; margin-right: 1rem; gap: 0.5rem;">
+                <label for="reader-font-sm" class="reading-control-btn font-btn-sm" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">A-</label>
+                <label for="reader-font-md" class="reading-control-btn font-btn-md" style="font-size: 1rem; padding: 0.25rem 0.5rem; font-weight: 600;">A</label>
+                <label for="reader-font-lg" class="reading-control-btn font-btn-lg" style="font-size: 1.2rem; padding: 0.25rem 0.5rem;">A+</label>
+              </div>
+              <div class="theme-selector">
+                <label for="reader-theme-light" class="theme-option theme-option-light">Light</label>
+                <label for="reader-theme-sepia" class="theme-option theme-option-sepia">Sepia</label>
+                <label for="reader-theme-dark" class="theme-option theme-option-dark">Dark</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reading-layout">
+          <div class="reading-content-container">
+            <div class="reading-title-area">
+              <div class="reading-book-title">The Time Machine</div>
+              <h1 class="reading-chapter-title font-serif">Chapter 1: The Dimension of Time</h1>
+            </div>
+            <div class="reading-text">
+              <p style="margin-bottom: 1.5rem;">The Time Traveller (for so it will be convenient to speak of him) was expounding a recondite matter to us. His grey eyes shone and twinkled, and his usually pale face was flushed and animated. The fire burned brightly, and the soft radiance of the incandescent lights in the lilies of silver caught the bubbles that flashed and passed in our glasses.</p>
+              <p style="margin-bottom: 1.5rem;">"You must follow me carefully," he said. "I shall have to controvert one or two ideas that are almost universally accepted. The geometry, for instance, they taught you at school is founded on a misconception..."</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reader 4 -->
+      <section id="reader-view-4" class="view-section">
+        <div class="reading-header-wrap">
+          <div class="reading-progress-container"><div class="reading-progress-bar"></div></div>
+          <div class="container reading-controls-bar">
+            <a href="#details-view-4" class="reading-control-btn"><span>← Details</span></a>
+            <div class="reading-controls-group">
+              <div class="reading-controls-group" style="border-right: 1px solid var(--border); padding-right: 1rem; margin-right: 1rem; gap: 0.5rem;">
+                <label for="reader-font-sm" class="reading-control-btn font-btn-sm" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">A-</label>
+                <label for="reader-font-md" class="reading-control-btn font-btn-md" style="font-size: 1rem; padding: 0.25rem 0.5rem; font-weight: 600;">A</label>
+                <label for="reader-font-lg" class="reading-control-btn font-btn-lg" style="font-size: 1.2rem; padding: 0.25rem 0.5rem;">A+</label>
+              </div>
+              <div class="theme-selector">
+                <label for="reader-theme-light" class="theme-option theme-option-light">Light</label>
+                <label for="reader-theme-sepia" class="theme-option theme-option-sepia">Sepia</label>
+                <label for="reader-theme-dark" class="theme-option theme-option-dark">Dark</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reading-layout">
+          <div class="reading-content-container">
+            <div class="reading-title-area">
+              <div class="reading-book-title">The Adventures of Sherlock Holmes</div>
+              <h1 class="reading-chapter-title font-serif">Chapter 1: A Scandal in Bohemia</h1>
+            </div>
+            <div class="reading-text">
+              <p style="margin-bottom: 1.5rem;">To Sherlock Holmes she is always the woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his cold, precise but admirably balanced mind.</p>
+              <p style="margin-bottom: 1.5rem;">He was, I take it, the most perfect reasoning and observing machine that the world has seen, but as a lover he would have placed himself in a false position. He never spoke of the softer passions, save with a gibe and a sneer...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reader 5 -->
+      <section id="reader-view-5" class="view-section">
+        <div class="reading-header-wrap">
+          <div class="reading-progress-container"><div class="reading-progress-bar"></div></div>
+          <div class="container reading-controls-bar">
+            <a href="#details-view-5" class="reading-control-btn"><span>← Details</span></a>
+            <div class="reading-controls-group">
+              <div class="reading-controls-group" style="border-right: 1px solid var(--border); padding-right: 1rem; margin-right: 1rem; gap: 0.5rem;">
+                <label for="reader-font-sm" class="reading-control-btn font-btn-sm" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">A-</label>
+                <label for="reader-font-md" class="reading-control-btn font-btn-md" style="font-size: 1rem; padding: 0.25rem 0.5rem; font-weight: 600;">A</label>
+                <label for="reader-font-lg" class="reading-control-btn font-btn-lg" style="font-size: 1.2rem; padding: 0.25rem 0.5rem;">A+</label>
+              </div>
+              <div class="theme-selector">
+                <label for="reader-theme-light" class="theme-option theme-option-light">Light</label>
+                <label for="reader-theme-sepia" class="theme-option theme-option-sepia">Sepia</label>
+                <label for="reader-theme-dark" class="theme-option theme-option-dark">Dark</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reading-layout">
+          <div class="reading-content-container">
+            <div class="reading-title-area">
+              <div class="reading-book-title">Mastering the Code</div>
+              <h1 class="reading-chapter-title font-serif">Chapter 1: The Art of Instruction</h1>
+            </div>
+            <div class="reading-text">
+              <p style="margin-bottom: 1.5rem;">Programming is the art of telling a computer exactly what to do using a language it understands. While computers are incredibly fast and capable of processing billions of calculations per second, they are also fundamentally simple-minded. They cannot interpret vague commands or read between the lines.</p>
+              <p style="margin-bottom: 1.5rem;">To master the code, one must first learn to think algorithmically—breaking down complex, real-world problems into logical, sequential steps that can be structured using variables, loops, functions, and conditional blocks.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reader 6 -->
+      <section id="reader-view-6" class="view-section">
+        <div class="reading-header-wrap">
+          <div class="reading-progress-container"><div class="reading-progress-bar"></div></div>
+          <div class="container reading-controls-bar">
+            <a href="#details-view-6" class="reading-control-btn"><span>← Details</span></a>
+            <div class="reading-controls-group">
+              <div class="reading-controls-group" style="border-right: 1px solid var(--border); padding-right: 1rem; margin-right: 1rem; gap: 0.5rem;">
+                <label for="reader-font-sm" class="reading-control-btn font-btn-sm" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">A-</label>
+                <label for="reader-font-md" class="reading-control-btn font-btn-md" style="font-size: 1rem; padding: 0.25rem 0.5rem; font-weight: 600;">A</label>
+                <label for="reader-font-lg" class="reading-control-btn font-btn-lg" style="font-size: 1.2rem; padding: 0.25rem 0.5rem;">A+</label>
+              </div>
+              <div class="theme-selector">
+                <label for="reader-theme-light" class="theme-option theme-option-light">Light</label>
+                <label for="reader-theme-sepia" class="theme-option theme-option-sepia">Sepia</label>
+                <label for="reader-theme-dark" class="theme-option theme-option-dark">Dark</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reading-layout">
+          <div class="reading-content-container">
+            <div class="reading-title-area">
+              <div class="reading-book-title">The Silent Witness</div>
+              <h1 class="reading-chapter-title font-serif">Chapter 1: The Rainy Interrogation</h1>
+            </div>
+            <div class="reading-text">
+              <p style="margin-bottom: 1.5rem;">The rain fell in sheets over the concrete playground as Sarah Lund stood under the rusted awning of the police department. It was half-past midnight, and the coffee machine had been empty for hours. When the radio crackled, she knew her shift was far from over.</p>
+              <p style="margin-bottom: 1.5rem;">"Lund here," she answered. The response was tense. A young boy had been found wandering the waterfront docks, shivering and clutching a black leather journal filled with ciphered notes. He refused to speak a single word. He was their only witness, and he was silent.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reader 7 -->
+      <section id="reader-view-7" class="view-section">
+        <div class="reading-header-wrap">
+          <div class="reading-progress-container"><div class="reading-progress-bar"></div></div>
+          <div class="container reading-controls-bar">
+            <a href="#details-view-7" class="reading-control-btn"><span>← Details</span></a>
+            <div class="reading-controls-group">
+              <div class="reading-controls-group" style="border-right: 1px solid var(--border); padding-right: 1rem; margin-right: 1rem; gap: 0.5rem;">
+                <label for="reader-font-sm" class="reading-control-btn font-btn-sm" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">A-</label>
+                <label for="reader-font-md" class="reading-control-btn font-btn-md" style="font-size: 1rem; padding: 0.25rem 0.5rem; font-weight: 600;">A</label>
+                <label for="reader-font-lg" class="reading-control-btn font-btn-lg" style="font-size: 1.2rem; padding: 0.25rem 0.5rem;">A+</label>
+              </div>
+              <div class="theme-selector">
+                <label for="reader-theme-light" class="theme-option theme-option-light">Light</label>
+                <label for="reader-theme-sepia" class="theme-option theme-option-sepia">Sepia</label>
+                <label for="reader-theme-dark" class="theme-option theme-option-dark">Dark</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reading-layout">
+          <div class="reading-content-container">
+            <div class="reading-title-area">
+              <div class="reading-book-title">The Midnight Clue</div>
+              <h1 class="reading-chapter-title font-serif">Chapter 1: The Prince's Request</h1>
+            </div>
+            <div class="reading-text">
+              <p style="margin-bottom: 1.5rem;">The ticking of the grandfather clock in the study was the only sound in the silent townhouse. Outside, London was wrapped in a dense, yellow fog. Sherlock Holmes sat with his knees drawn up near the fireplace, holding a vial of dark fluid to the light.</p>
+              <p style="margin-bottom: 1.5rem;">A carriage pulled up outside. Moments later, Watson ushered in a foreign prince wearing a heavy velvet cape. "Mr. Holmes," the man pleaded, "if this diamond is not retrieved within twenty-four hours, my kingdom faces ruin." Holmes smiled thinly and reached for his coat.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reader 8 -->
+      <section id="reader-view-8" class="view-section">
+        <div class="reading-header-wrap">
+          <div class="reading-progress-container"><div class="reading-progress-bar"></div></div>
+          <div class="container reading-controls-bar">
+            <a href="#details-view-8" class="reading-control-btn"><span>← Details</span></a>
+            <div class="reading-controls-group">
+              <div class="reading-controls-group" style="border-right: 1px solid var(--border); padding-right: 1rem; margin-right: 1rem; gap: 0.5rem;">
+                <label for="reader-font-sm" class="reading-control-btn font-btn-sm" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">A-</label>
+                <label for="reader-font-md" class="reading-control-btn font-btn-md" style="font-size: 1rem; padding: 0.25rem 0.5rem; font-weight: 600;">A</label>
+                <label for="reader-font-lg" class="reading-control-btn font-btn-lg" style="font-size: 1.2rem; padding: 0.25rem 0.5rem;">A+</label>
+              </div>
+              <div class="theme-selector">
+                <label for="reader-theme-light" class="theme-option theme-option-light">Light</label>
+                <label for="reader-theme-sepia" class="theme-option theme-option-sepia">Sepia</label>
+                <label for="reader-theme-dark" class="theme-option theme-option-dark">Dark</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reading-layout">
+          <div class="reading-content-container">
+            <div class="reading-title-area">
+              <div class="reading-book-title">Beyond the Horizon</div>
+              <h1 class="reading-chapter-title font-serif">Chapter 1: The Warp Coils Hum</h1>
+            </div>
+            <div class="reading-text">
+              <p style="margin-bottom: 1.5rem;">The warp coils hummed with a low, vibrating hum that resonated directly through the steel floorboards of the deck. Captain Ray Vance looked out the main viewing screen of the spacecraft Pioneer. Behind them lay the familiar blue sphere of Earth; ahead lay the darkness of the Outer Void.</p>
+              <p style="margin-bottom: 1.5rem;">A wormhole had stabilized near the orbit of Neptune, defying all known laws of physics. The mission was simple: go in, map the other side, and return. But Vance had a feeling that the path ahead was a one-way door to something else.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reader 9 -->
+      <section id="reader-view-9" class="view-section">
+        <div class="reading-header-wrap">
+          <div class="reading-progress-container"><div class="reading-progress-bar"></div></div>
+          <div class="container reading-controls-bar">
+            <a href="#details-view-9" class="reading-control-btn"><span>← Details</span></a>
+            <div class="reading-controls-group">
+              <div class="reading-controls-group" style="border-right: 1px solid var(--border); padding-right: 1rem; margin-right: 1rem; gap: 0.5rem;">
+                <label for="reader-font-sm" class="reading-control-btn font-btn-sm" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">A-</label>
+                <label for="reader-font-md" class="reading-control-btn font-btn-md" style="font-size: 1rem; padding: 0.25rem 0.5rem; font-weight: 600;">A</label>
+                <label for="reader-font-lg" class="reading-control-btn font-btn-lg" style="font-size: 1.2rem; padding: 0.25rem 0.5rem;">A+</label>
+              </div>
+              <div class="theme-selector">
+                <label for="reader-theme-light" class="theme-option theme-option-light">Light</label>
+                <label for="reader-theme-sepia" class="theme-option theme-option-sepia">Sepia</label>
+                <label for="reader-theme-dark" class="theme-option theme-option-dark">Dark</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reading-layout">
+          <div class="reading-content-container">
+            <div class="reading-title-area">
+              <div class="reading-book-title">Whispers of the Heart</div>
+              <h1 class="reading-chapter-title font-serif">Chapter 1: The Studio Dispute</h1>
+            </div>
+            <div class="reading-text">
+              <p style="margin-bottom: 1.5rem;">The afternoon light in the Parisian studio was perfect, filtering through the wide skylight in soft, golden rays. Sophia stood before her easel, adding a layer of cerulean blue to her canvas. She was in her element, quiet, focused, and completely at peace.</p>
+              <p style="margin-bottom: 1.5rem;">Then the heavy oak door slammed open. A tall man in a paint-spattered jacket walked in, carrying three blank canvases and a crate of acrylics. "Who are you," he demanded, "and what are you doing in my studio?" Sophia raised an eyebrow. The lease battle was about to begin.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reader 10 -->
+      <section id="reader-view-10" class="view-section">
+        <div class="reading-header-wrap">
+          <div class="reading-progress-container"><div class="reading-progress-bar"></div></div>
+          <div class="container reading-controls-bar">
+            <a href="#details-view-10" class="reading-control-btn"><span>← Details</span></a>
+            <div class="reading-controls-group">
+              <div class="reading-controls-group" style="border-right: 1px solid var(--border); padding-right: 1rem; margin-right: 1rem; gap: 0.5rem;">
+                <label for="reader-font-sm" class="reading-control-btn font-btn-sm" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">A-</label>
+                <label for="reader-font-md" class="reading-control-btn font-btn-md" style="font-size: 1rem; padding: 0.25rem 0.5rem; font-weight: 600;">A</label>
+                <label for="reader-font-lg" class="reading-control-btn font-btn-lg" style="font-size: 1.2rem; padding: 0.25rem 0.5rem;">A+</label>
+              </div>
+              <div class="theme-selector">
+                <label for="reader-theme-light" class="theme-option theme-option-light">Light</label>
+                <label for="reader-theme-sepia" class="theme-option theme-option-sepia">Sepia</label>
+                <label for="reader-theme-dark" class="theme-option theme-option-dark">Dark</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reading-layout">
+          <div class="reading-content-container">
+            <div class="reading-title-area">
+              <div class="reading-book-title">The Silent Cry</div>
+              <h1 class="reading-chapter-title font-serif">Chapter 1: Deciphering the Runes</h1>
+            </div>
+            <div class="reading-text">
+              <p style="margin-bottom: 1.5rem;">Sarah Lund knew that translating the journal was only the first step. The real danger lay in who wanted it kept quiet. As she sat in her kitchen under a dim yellow bulb, she traced the cursive handwriting of the boy's father. Each decoded word pointed to names she knew all too well.</p>
+              <p style="margin-bottom: 1.5rem;">A shadow fell across the frosted window pane. Lund slipped her hand under the table, her fingers closing around the cold grip of her revolver. They were already here.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reader 11 -->
+      <section id="reader-view-11" class="view-section">
+        <div class="reading-header-wrap">
+          <div class="reading-progress-container"><div class="reading-progress-bar"></div></div>
+          <div class="container reading-controls-bar">
+            <a href="#details-view-11" class="reading-control-btn"><span>← Details</span></a>
+            <div class="reading-controls-group">
+              <div class="reading-controls-group" style="border-right: 1px solid var(--border); padding-right: 1rem; margin-right: 1rem; gap: 0.5rem;">
+                <label for="reader-font-sm" class="reading-control-btn font-btn-sm" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">A-</label>
+                <label for="reader-font-md" class="reading-control-btn font-btn-md" style="font-size: 1rem; padding: 0.25rem 0.5rem; font-weight: 600;">A</label>
+                <label for="reader-font-lg" class="reading-control-btn font-btn-lg" style="font-size: 1.2rem; padding: 0.25rem 0.5rem;">A+</label>
+              </div>
+              <div class="theme-selector">
+                <label for="reader-theme-light" class="theme-option theme-option-light">Light</label>
+                <label for="reader-theme-sepia" class="theme-option theme-option-sepia">Sepia</label>
+                <label for="reader-theme-dark" class="theme-option theme-option-dark">Dark</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reading-layout">
+          <div class="reading-content-container">
+            <div class="reading-title-area">
+              <div class="reading-book-title">JavaScript for Beginners</div>
+              <h1 class="reading-chapter-title font-serif">Chapter 1: The Magic Console</h1>
+            </div>
+            <div class="reading-text">
+              <p style="margin-bottom: 1.5rem;">Welcome to the world of programming! JavaScript is the language that powers the modern web. Every dynamic website you visit—from social networks to interactive books platforms—relies on JavaScript to handle user clicks, fetch data, and update pages in real-time.</p>
+              <p style="margin-bottom: 1.5rem;">To begin, let's look at the console. It is a sandbox where we can test instructions instantly. Open your browser's developer tools, navigate to the console tab, and type: <code>console.log("Hello, World!");</code>. You have just run your first line of code!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reader 12 -->
+      <section id="reader-view-12" class="view-section">
+        <div class="reading-header-wrap">
+          <div class="reading-progress-container"><div class="reading-progress-bar"></div></div>
+          <div class="container reading-controls-bar">
+            <a href="#details-view-12" class="reading-control-btn"><span>← Details</span></a>
+            <div class="reading-controls-group">
+              <div class="reading-controls-group" style="border-right: 1px solid var(--border); padding-right: 1rem; margin-right: 1rem; gap: 0.5rem;">
+                <label for="reader-font-sm" class="reading-control-btn font-btn-sm" style="font-size: 0.8rem; padding: 0.25rem 0.5rem;">A-</label>
+                <label for="reader-font-md" class="reading-control-btn font-btn-md" style="font-size: 1rem; padding: 0.25rem 0.5rem; font-weight: 600;">A</label>
+                <label for="reader-font-lg" class="reading-control-btn font-btn-lg" style="font-size: 1.2rem; padding: 0.25rem 0.5rem;">A+</label>
+              </div>
+              <div class="theme-selector">
+                <label for="reader-theme-light" class="theme-option theme-option-light">Light</label>
+                <label for="reader-theme-sepia" class="theme-option theme-option-sepia">Sepia</label>
+                <label for="reader-theme-dark" class="theme-option theme-option-dark">Dark</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reading-layout">
+          <div class="reading-content-container">
+            <div class="reading-title-area">
+              <div class="reading-book-title">The Lost Kingdom</div>
+              <h1 class="reading-chapter-title font-serif">Chapter 1: The Mountain Trail</h1>
+            </div>
+            <div class="reading-text">
+              <p style="margin-bottom: 1.5rem;">The path through the Aethelgard Mountains was narrow and treacherous, but the ranger knew every step. A cold wind blew down from the snow-covered peaks, bringing with it the distant, haunting howl of shadow beasts. The Silver Scepter had to be retrieved, or the barrier would fall entirely.</p>
+              <p style="margin-bottom: 1.5rem;">Griping his bow tightly, Aric adjusted his leather hood and continued climbing. In his pocket lay a map of the ruined capital. The journey would be long, but the survival of Aethelgard depended on his success.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -309,7 +1602,6 @@
             <p>Have questions about publishing, copyright, or technical support? Drop us a message.</p>
           </div>
           <div class="contact-grid">
-            <!-- Support Channel Details details -->
             <div class="contact-info">
               <h3>Support Channels</h3>
               <p>Our customer service and editorial staff are available to help you with your publishing accounts, reading queries, or copyright claims.</p>
@@ -319,10 +1611,9 @@
                 <div class="contact-item"><div class="contact-item-icon">📍</div><div><div style="font-weight: 600;">Location</div><div style="color: var(--text-secondary); font-size: 0.9rem;">visakhapatnam, Andhra Pradesh, India</div></div></div>
               </div>
             </div>
-            <!-- Contact submit form -->
             <div class="review-form" style="margin-bottom: 0;">
               <h4>Send a Message</h4>
-              <form onsubmit="event.preventDefault(); alert('Message sent!'); this.reset();">
+              <form onsubmit="alert('Message sent!'); this.reset(); return false;">
                 <div class="form-group"><label for="contact-name">Your Name</label><input type="text" id="contact-name" class="form-control" required /></div>
                 <div class="form-group"><label for="contact-email">Email Address</label><input type="email" id="contact-email" class="form-control" required /></div>
                 <div class="form-group"><label for="contact-message">Message Details</label><textarea id="contact-message" class="form-control" rows="5" placeholder="Write your comments here..." required></textarea></div>
@@ -339,20 +1630,16 @@
           <h1 class="font-serif" style="font-size: 2.5rem; margin-bottom: 0.5rem; text-align: center;">Add a New Title</h1>
           <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">Contribute a new book or web novel to our catalog.</p>
           
-          <!-- Book Publisher creation form panel -->
           <div class="review-form">
-            <form id="add-book-form">
-              <!-- Book title -->
+            <form onsubmit="alert('Book publication request received! (Prototype Mode: Book data is not saved offline)'); this.reset(); return false;">
               <div class="form-group">
                 <label for="add-title">Book Title</label>
                 <input type="text" id="add-title" class="form-control" required />
               </div>
-              <!-- Author -->
               <div class="form-group">
                 <label for="add-author">Author Name</label>
                 <input type="text" id="add-author" class="form-control" required />
               </div>
-              <!-- Genre + format split selection -->
               <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                 <div>
                   <label for="add-category">Genre / Category</label>
@@ -373,7 +1660,6 @@
                   </select>
                 </div>
               </div>
-              <!-- Rating + Chapters selection -->
               <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                 <div>
                   <label for="add-rating">Rating (1.0 to 5.0)</label>
@@ -384,17 +1670,14 @@
                   <input type="number" id="add-chapters" class="form-control" min="1" value="10" required />
                 </div>
               </div>
-              <!-- Tag options -->
               <div class="form-group">
                 <label for="add-tags">Tags (comma-separated)</label>
                 <input type="text" id="add-tags" class="form-control" placeholder="e.g. Magic, Adventure, Quest" required />
               </div>
-              <!-- Summary hook line -->
               <div class="form-group">
                 <label for="add-short-desc">Short Summary</label>
                 <input type="text" id="add-short-desc" class="form-control" placeholder="A brief one-sentence hook..." required />
               </div>
-              <!-- Full synopsis detail body -->
               <div class="form-group">
                 <label for="add-description">Full Synopsis</label>
                 <textarea id="add-description" class="form-control" rows="5" placeholder="Write the full synopsis of the story..." required></textarea>
@@ -409,46 +1692,35 @@
     <!-- ==================== FOOTER ==================== -->
     <footer>
       <div class="container footer-grid">
-        <!-- Brand Summary column -->
         <div class="footer-brand">
-          <a href="#" class="logo font-serif" style="margin-bottom: 1rem; display: inline-flex;">📖 PageTurner</a>
+          <a href="#home-view" class="logo font-serif" style="margin-bottom: 1rem; display: inline-flex;">📖 PageTurner</a>
           <p>A simple, modern online platform for books and web novels. Dedicated to distraction-free reading, visual simplicity, and accessible typography.</p>
           <div class="social-links">
             <a href="https://twitter.com" target="_blank">🐦</a><a href="https://facebook.com" target="_blank">👥</a><a href="https://instagram.com" target="_blank">📸</a><a href="https://github.com" target="_blank">💻</a>
           </div>
         </div>
-        <!-- Explore column -->
         <div class="footer-col">
           <h4>Explore</h4>
           <ul>
-            <li><a href="#" data-view="home-view">Home Page</a></li>
-            <li><a href="#" data-view="catalog-view" data-type="Books">E-Books Catalogue</a></li>
-            <li><a href="#" data-view="catalog-view" data-type="Novels">Web Novels</a></li>
-            <li><a href="#" data-view="catalog-view">Genres / Categories</a></li>
+            <li><a href="#home-view">Home Page</a></li>
+            <li><a href="#catalog-view">Catalogue</a></li>
           </ul>
         </div>
-        <!-- Company column -->
         <div class="footer-col">
           <h4>Company</h4>
           <ul>
-            <li><a href="#" data-view="about-view">About Us</a></li>
-            <li><a href="#" data-view="about-view">Careers</a></li>
-            <li><a href="#" data-view="contact-view">Editorial Team</a></li>
-            <li><a href="#" data-view="contact-view">Contact Support</a></li>
+            <li><a href="#about-view">About Us</a></li>
+            <li><a href="#contact-view">Contact Support</a></li>
           </ul>
         </div>
-        <!-- Legal column -->
         <div class="footer-col">
           <h4>Legal & Author</h4>
           <ul>
-            <li><a href="#" data-view="about-view">Terms of Service</a></li>
-            <li><a href="#" data-view="about-view">Privacy Policy</a></li>
-            <li><a href="#" data-view="about-view">Copyright Infringement</a></li>
-            <li><a href="#" data-view="contact-view">Publishing Partners</a></li>
+            <li><a href="#about-view">Terms of Service</a></li>
+            <li><a href="#about-view">Privacy Policy</a></li>
           </ul>
         </div>
       </div>
-      <!-- Copyright bottom panel -->
       <div class="container footer-bottom">
         <p>&copy; 2026 PageTurner Publishing Ltd. All rights reserved.</p>
         <p>Built with ❤️ for passionate readers.</p>
@@ -457,40 +1729,36 @@
 
     <!-- ==================== AUTHENTICATIONS POPUP MODAL ==================== -->
     <div class="modal-overlay" id="auth-modal">
-      <div class="modal-content">
-        <!-- Close overlay button -->
-        <button class="modal-close">✕</button>
+      <label for="auth-toggle" class="modal-close" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; cursor: pointer; z-index: 1;"></label>
+      <div class="modal-content" style="z-index: 2;">
+        <label for="auth-toggle" class="modal-close" style="cursor: pointer;">✕</label>
         <h2 class="modal-title font-serif">Welcome Back</h2>
         <p class="modal-desc">Access your personal bookmark shelf and syncing logs.</p>
         
-        <!-- Toggle Tabs -->
         <div class="modal-tabs">
-          <div class="modal-tab active">Log In</div>
-          <div class="modal-tab">Register</div>
+          <label for="auth-tab-login" class="modal-tab">Log In</label>
+          <label for="auth-tab-register" class="modal-tab">Register</label>
         </div>
         
-        <!-- Tab Form view 1: Log In -->
-        <div class="modal-form-view active">
-          <form>
+        <!-- Tab 1: Log In -->
+        <div class="modal-form-view login-view">
+          <form onsubmit="alert('Welcome back! You have successfully signed in.'); document.getElementById('auth-toggle').checked = false; return false;">
             <div class="form-group"><label for="login-email">Email Address</label><input type="email" id="login-email" class="form-control" required /></div>
             <div class="form-group"><label for="login-password">Password</label><input type="password" id="login-password" class="form-control" required /></div>
-            <button type="submit" class="btn btn-primary btn-auth-submit" style="width: 100%; margin-top: 1rem;">Log In</button>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Log In</button>
           </form>
         </div>
         
-        <!-- Tab Form view 2: Register -->
-        <div class="modal-form-view">
-          <form>
+        <!-- Tab 2: Register -->
+        <div class="modal-form-view register-view">
+          <form onsubmit="alert('Account successfully created!'); document.getElementById('auth-toggle').checked = false; return false;">
             <div class="form-group"><label for="register-name">Full Name</label><input type="text" id="register-name" class="form-control" required /></div>
             <div class="form-group"><label for="register-email">Email Address</label><input type="email" id="register-email" class="form-control" required /></div>
             <div class="form-group"><label for="register-password">Password</label><input type="password" id="register-password" class="form-control" required /></div>
-            <button type="submit" class="btn btn-primary btn-auth-submit" style="width: 100%; margin-top: 1rem;">Create Account</button>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Create Account</button>
           </form>
         </div>
       </div>
     </div>
-
-    <!-- 3. Dynamic Module Script compilation entry point -->
-    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
